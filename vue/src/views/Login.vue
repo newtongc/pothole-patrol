@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <form @submit.prevent="login">
-      <h1 >Please Sign In</h1>
+      <h1>Please Sign In</h1>
       <div role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
@@ -9,16 +9,32 @@
         Thank you for registering, please sign in.
       </div>
       <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+        <input
+          type="text"
+          id="username"
+          v-model="user.username"
+          required
+          autofocus
+          placeholder="Username"
+        />
       </div>
       <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
+        <input
+          type="password"
+          id="password"
+          v-model="user.password"
+          required
+          placeholder="Password"
+        />
       </div>
-      <button type="submit">Sign in</button>
+      <button type="submit">
+        Sign in <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+      </button>
       <p>
-      <router-link :to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+        <router-link :to="{ name: 'register' }"
+          >Need an account? Sign up.</router-link
+        >
+      </p>
     </form>
   </div>
 </template>
@@ -33,31 +49,31 @@ export default {
     return {
       user: {
         username: "",
-        password: ""
+        password: "",
       },
-      invalidCredentials: false
+      invalidCredentials: false,
     };
   },
   methods: {
     login() {
       authService
         .login(this.user)
-        .then(response => {
+        .then((response) => {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
             this.$router.push("/");
           }
         })
-        .catch(error => {
+        .catch((error) => {
           const response = error.response;
 
           if (response.status === 401) {
             this.invalidCredentials = true;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -67,5 +83,28 @@ export default {
 }
 label {
   margin-right: 0.5rem;
+}
+
+#login {
+  text-align: center;
+  border-radius: 20px;
+  background-color: gray;
+  width: 50%;
+  height: 40vh;
+  margin: auto;
+}
+
+body {
+  padding: 50;
+}
+
+h1 {
+  color: black;
+  font-size: 40px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-input-group {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 </style>
