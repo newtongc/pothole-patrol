@@ -31,7 +31,7 @@ public class PotholeController {
         return jdbcPotholeDao.getPotholes();
     }
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/potholes/add", method = RequestMethod.POST)
+    @RequestMapping(path = "/potholes", method = RequestMethod.POST)
     public void addPothole(@Valid @RequestBody RegisterPotholeDto newPothole) {
         try {
             Pothole pothole = potholeDao.createPothole(newPothole);

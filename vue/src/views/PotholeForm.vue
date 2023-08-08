@@ -1,31 +1,54 @@
 <template>
   <div class="container">
     <h1>Report A Pothole</h1>
-    <form action="submit_form.php" method="POST">
+    <form>
       <label for="location">Location:</label>
-      <input type="text" id="location" name="location" required /><br /><br />
+      <input type="text" id="location" name="location" v-model="pothole.location" required /><br /><br />
       <label for="description">Description:</label>
       <input
         type="text"
         id="description"
         name="description"
+        v-model="pothole.description"
         required 
       /><br /><br />
       <label for="severity">Severity:</label>
-      <select id="severity" name="severity">
+      <select id="severity" name="severity" v-model="pothole.severity">
         <option value="1">1 - Low</option>
         <option value="2">2 - Medium</option>
         <option value="3">3 - High</option></select
       ><br /><br />
       <label for="contact">Can we contact you for for more information? </label>
       <input type="checkbox" id="contact" name="contact" /><br /><br />
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" v-on:click.prevent="savePothole()"/>
     </form>
   </div>
 </template>
 
 <script>
-export default {};
+import potholeService from '../services/PotholeService.js';
+
+export default {
+    name: 'pothole-form',
+    data(){
+        return {
+            pothole: {
+                description: "",
+                location: "",
+                severity: null
+            },
+        };
+    },
+    methods: {
+    savePothole() {
+      potholeService.createPothole(this.pothole).then((response) => {
+        if (response.status === 201) {
+          this.$router.push("/");
+        }
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>

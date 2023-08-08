@@ -1,18 +1,18 @@
-import axios from 'axios';
+import http from 'axios';
 
-const http = axios.create({
-    baseURL: "http://localhost:9000"
-});
+// const http = axios.create({
+//     baseURL: "http://localhost:9000"
+// });
 
 export default {
-    list() {
+    listPotholes() {
         return http.get('/potholes');
       },
-      get(id) {
+      getPothole(id) {
         return http.get(`/potholes/${id}`);
       },
       createPothole(pothole) {
-        return http.post(`/potholes/add`, pothole)
+        return http.post(`/potholes`, pothole)
       },
       updatePothole(id, pothole) {
         return http.put(`/potholes/${id}`, pothole)
