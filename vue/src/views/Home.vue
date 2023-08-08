@@ -19,20 +19,19 @@
 </template>
 
 <script>
+import potholeService from "../services/PotholeService.js";
 export default {
   name: "home",
 
   data() {
     return {
-      potholes: [
-        {
-          id: 1,
-          location: "1776 Mentor Ave",
-          description: "this is LARGE",
-          severity: 3,
-        },
-      ],
+      potholes: [],
     };
+  },
+  created() {
+    potholeService.listPotholes().then((response) => {
+      this.potholes = response.data;
+    });
   },
 };
 </script>
