@@ -69,7 +69,7 @@ const router = new Router({
       component: PotholeDetails,
       // props: true,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
       }
     }
   ]
@@ -80,6 +80,7 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
 
   // If it does and they are not logged in, send the user to "/login"
+
   if (requiresAuth && store.state.token === '') {
     next("/login");
   } else {

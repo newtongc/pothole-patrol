@@ -25,7 +25,8 @@ export default new Vuex.Store({
       id: null,
       description: "",
       location: "",
-      severity: null
+      severity: null,
+      reported_date: null
     }
   },
   mutations: {
@@ -47,6 +48,15 @@ export default new Vuex.Store({
     },
     SET_ACTIVE_POTHOLE(state, data) {
       state.activePothole = data;
+    }
+  },
+  getters: {
+    userIsAdmin(state) {
+      if (state.user?.authorities) {
+        return state.user.authorities.some(ab => ab.name === 'ROLE_ADMIN');
+      } else {
+        return false;
+      }
     }
   }
 })

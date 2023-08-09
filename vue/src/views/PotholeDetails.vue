@@ -18,8 +18,8 @@
         <input type="date" id="repairDate" />
       </div>
       <div>
-        <label for="reportedDate">Reported Date:</label>
-        <input type="date" id="reportedDate" />
+        <label for="reported-Date">Reported Date:</label>
+        <input type="date" id="reported_date" />
       </div>
       <button type="submit">Submit</button>
     </form>
@@ -58,6 +58,9 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  top: -230px;
+}
 h1 {
   font-size: 15px;
 }
@@ -67,7 +70,7 @@ h1 {
   align-items: center;
   justify-content: center;
   height: 70vh;
-  background-color: #ffffff;
+  background-color: rgba(128, 128, 128, 0.616);
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -116,7 +119,7 @@ button[type="submit"] {
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 10px 0px 0px 20px;
+  padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s;
 }

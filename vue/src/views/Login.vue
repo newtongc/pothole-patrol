@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <form @submit.prevent="login">
-      <h1>Please Sign In</h1>
+      <h3>Please Sign In</h3>
       <div role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
@@ -88,7 +88,7 @@ label {
 #login {
   text-align: center;
   border-radius: 20px;
-  background-color: gray;
+  background-color: rgba(128, 128, 128, 0.603);
   width: 50%;
   height: 40vh;
   margin: auto;
@@ -98,10 +98,11 @@ body {
   padding: 50;
 }
 
-h1 {
-  color: black;
+h3 {
+  color: white;
   font-size: 40px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  right: -100px;
 }
 
 .form-input-group {
