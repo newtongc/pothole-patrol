@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 
+import java.util.Date;
 
 public class Pothole {
     private int id;
@@ -8,12 +9,14 @@ public class Pothole {
 
     private int severity;
     private String location;
+    private Date reportedDate;
 
-    public Pothole(int id, String description, int severity, String location) {
+    public Pothole(int id, String description, int severity, String location, Date reportedDate) {
         this.id = id;
         this.description = description;
         this.severity = severity;
         this.location = location;
+        this.reportedDate = reportedDate;
     }
 
     public Pothole() {
@@ -49,5 +52,13 @@ public class Pothole {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Date getReportedDate() {
+        return reportedDate;
+    }
+
+    public void setReportedDate(Date reportedDate) {
+        this.reportedDate = reportedDate;
     }
 }

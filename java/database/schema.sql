@@ -14,6 +14,7 @@ pothole_id SERIAL,
 location varchar(200),
 description varchar(500),
 severity int constraint threeDigits check (severity between 1 and 3),
+reported_date date not null default current_date,
 CONSTRAINT PK_potholes PRIMARY KEY (pothole_id)
 );
 CREATE TABLE user_potholes (
