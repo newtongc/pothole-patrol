@@ -3,6 +3,7 @@ package com.techelevator.model;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 public class RegisterPotholeDto {
     @NotEmpty
@@ -11,6 +12,8 @@ public class RegisterPotholeDto {
     private String location;
    @NotNull
     private int severity;
+   @NotNull
+   private Date reportedDate;
 
 
 
@@ -36,5 +39,13 @@ public class RegisterPotholeDto {
 
     public void setSeverity(int severity) {
         this.severity = severity;
+    }
+
+    public Date getReportedDate() {
+        return reportedDate;
+    }
+
+    public void setReportedDate(Date reportedDate) {
+        this.reportedDate = reportedDate;
     }
 }

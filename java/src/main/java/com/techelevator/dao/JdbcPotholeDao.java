@@ -23,7 +23,7 @@ public class JdbcPotholeDao implements PotholeDao{
     @Override
     public List<Pothole> getPotholes() {
         List<Pothole> potholes = new ArrayList<>();
-        String sql = "SELECT pothole_id, description, location, severity FROM potholes";
+        String sql = "SELECT pothole_id, description, location, severity, reported_date FROM potholes";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -39,7 +39,7 @@ public class JdbcPotholeDao implements PotholeDao{
     @Override
     public Pothole getPotholeById(int id) {
         Pothole pothole = null;
-        String sql = "SELECT pothole_id, description, severity, location FROM potholes WHERE pothole_id = ?";
+        String sql = "SELECT pothole_id, description, severity, location, reported_date FROM potholes WHERE pothole_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
             if (results.next()) {
@@ -73,6 +73,7 @@ public class JdbcPotholeDao implements PotholeDao{
         pothole.setId(rs.getInt("pothole_id"));
         pothole.setLocation(rs.getString("location"));
         pothole.setSeverity(rs.getInt("severity"));
+        pothole.setReportedDate(rs.getDate("reported_date"));
         return pothole;
     }
 }
