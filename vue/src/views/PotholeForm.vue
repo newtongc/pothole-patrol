@@ -18,12 +18,12 @@
         v-model="pothole.description"
         required
       /><br /><br />
-      <label for="severity">Severity:</label>
+      <!-- <label for="severity">Severity:</label>
       <select id="severity" name="severity" v-model="pothole.severity">
-        <option value="1">1 - Low</option>
+        <option value="1">1 - High</option>
         <option value="2">2 - Medium</option>
-        <option value="3">3 - High</option></select
-      ><br /><br />
+        <option value="3">3 - Low</option></select
+      ><br /><br /> -->
       <label for="contact">Can we contact you for for more information? </label>
       <input type="checkbox" id="contact" name="contact" /><br /><br />
       <input type="submit" value="Submit" v-on:click.prevent="savePothole()" />
@@ -41,7 +41,6 @@ export default {
       pothole: {
         description: "",
         location: "",
-        severity: null,
       },
     };
   },
@@ -67,7 +66,7 @@ body {
   background-color: #f5f5f5;
 }
 .container {
-  background-color: rgba(128, 128, 128, 0.671);
+  background-color: rgba(128, 128, 128, 0.822);
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);

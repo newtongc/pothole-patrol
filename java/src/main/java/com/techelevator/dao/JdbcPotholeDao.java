@@ -53,10 +53,10 @@ public class JdbcPotholeDao implements PotholeDao{
     @Override
     public Pothole createPothole(RegisterPotholeDto pothole) {
         Pothole newPothole = null;
-        String insertPotholeSql = "INSERT INTO potholes (location, description, severity) values (?, ?, ?) RETURNING pothole_id";
+        String insertPotholeSql = "INSERT INTO potholes (location, description) values (?, ?) RETURNING pothole_id";
 
         try {
-            int newPotholeId = jdbcTemplate.queryForObject(insertPotholeSql, int.class, pothole.getLocation(), pothole.getDescription(), pothole.getSeverity());
+            int newPotholeId = jdbcTemplate.queryForObject(insertPotholeSql, int.class, pothole.getLocation(), pothole.getDescription());
             newPothole = getPotholeById(newPotholeId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);

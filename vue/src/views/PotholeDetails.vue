@@ -3,6 +3,7 @@
     <h1>Location: {{ pothole.location }}</h1>
     <h1>Description: {{ pothole.description }}</h1>
     <h1>Severity: {{ pothole.severity }}</h1>
+    <h1>Date Reported: {{ pothole.reportedDate }}</h1>
     <h2>Inspection Form</h2>
     <form @submit.prevent="submitForm">
       <div class="form-group">
@@ -17,10 +18,7 @@
         <label for="repairDate">Repair Date:</label>
         <input type="date" id="repairDate" />
       </div>
-      <div>
-        <label for="reported-Date">Reported Date:</label>
-        <input type="date" id="reportedDate" />
-      </div>
+
       <button type="submit">Submit</button>
     </form>
   </div>

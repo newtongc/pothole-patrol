@@ -6,8 +6,8 @@
       <tr>
         <th>Location</th>
         <th>Description</th>
-        <th>Severity</th>
         <th>Reported Date</th>
+        <th v-if="isAdmin">Severity</th>
       </tr>
 
       <tr v-for="pothole in potholes" v-bind:key="pothole.id">
@@ -22,8 +22,8 @@
           <a v-else> {{ pothole.location }}</a>
         </td>
         <td>{{ pothole.description }}</td>
-        <td>{{ pothole.severity }}</td>
         <td>{{ pothole.reportedDate }}</td>
+        <td v-if="isAdmin">{{ pothole.severity }}</td>
       </tr>
     </table>
   </div>
@@ -88,7 +88,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin-top: 20px;
-  background-color: rgba(128, 128, 128, 0.644);
+  background-color: rgba(128, 128, 128, 0.822);
   border-radius: 10px;
 }
 th,
@@ -98,13 +98,13 @@ td {
   text-align: left;
 }
 th {
-  background-color: #f2f2f2;
+  background-color: rgb(150, 150, 150, 0.822);
   font-weight: bold;
 }
 td {
   vertical-align: top;
   text-align: left;
-  background-color: rgba(128, 128, 128, 0.404);
+  /* background-color: rgba(128, 128, 128, 0.7); */
   color: white;
 }
 th,
