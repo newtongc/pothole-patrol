@@ -6,6 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import PotholeForm from '../views/PotholeForm.vue'
+import PotholeDetails from '../views/PotholeDetails.vue'
 
 Vue.use(Router)
 
@@ -55,9 +56,18 @@ const router = new Router({
       }
     },
     {
-      path:"/addPothole",
+      path: "/addPothole",
       name: "addPothole",
       component: PotholeForm,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/potholes/:id",
+      name: "getPothole",
+      component: PotholeDetails,
+      // props: true,
       meta: {
         requiresAuth: true
       }

@@ -10,7 +10,13 @@
       </tr>
 
       <tr v-for="pothole in potholes" v-bind:key="pothole.id">
-        <td>{{ pothole.location }}</td>
+        <td>
+          <router-link
+            v-bind:to="{ name: 'getPothole', params: { id: pothole.id } }"
+          >
+            {{ pothole.location }}</router-link
+          >
+        </td>
         <td>{{ pothole.description }}</td>
         <td>{{ pothole.severity }}</td>
       </tr>
