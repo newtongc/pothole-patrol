@@ -19,7 +19,7 @@
       </div>
       <div>
         <label for="reported-Date">Reported Date:</label>
-        <input type="date" id="reported_date" />
+        <input type="date" id="reportedDate" />
       </div>
       <button type="submit">Submit</button>
     </form>

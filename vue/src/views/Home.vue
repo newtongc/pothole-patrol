@@ -23,7 +23,7 @@
         </td>
         <td>{{ pothole.description }}</td>
         <td>{{ pothole.severity }}</td>
-        <td>{{ pothole.reported_date }}</td>
+        <td>{{ pothole.reportedDate }}</td>
       </tr>
     </table>
   </div>
