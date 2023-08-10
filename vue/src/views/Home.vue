@@ -2,50 +2,74 @@
   <div class="home">
     <h2>Home</h2>
 
-    <table>
-      <tr>
-        <th>Nearest Address</th>
-<<<<<<< HEAD
-        <th>Zip Code</th>
-        <th>Location Details</th>
-        <th>Details</th>
-        <th>Potential For Damage</th>
-        <th>In Traffic</th>
-=======
-        <th>Description</th>
->>>>>>> f2fa5757317cc81ab6ed1fce0449744a0bfd9ecb
-        <th>Reported Date</th>
-        <th>Inspected Date</th>
-        <th>Inspected?</th>
-        <th>Repair Date</th>
-        <th>Repaired?</th>
-        <th v-if="isAdmin">Severity</th>
-      </tr>
+    <div class="filter-container">
+      <input
+        type="text"
+        class="filter-input"
+        placeholder="Filter by Street Name"
+        v-model="filterStreet"
+      />
+      <input
+        type="text"
+        class="filter-input"
+        placeholder="Filter by Zip Code"
+        v-model="filterZipCode"
+      />
+      <input
+        type="date"
+        class="filter-input"
+        placeholder="Filter by Reported Date"
+        v-model="filterReportedDate"
+      />
+      <select class="filter-input" v-if="isAdmin" v-model="filterSeverity">
+        <option value="">Filter by Severity</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+    </div>
+    <div class="table-container">
+      <table>
+        <tr>
+          <th>Nearest Address</th>
+          <th>Zip Code</th>
+          <th>Location Details</th>
+          <th>Details</th>
+          <th>Potential For Damage</th>
+          <th>In Traffic</th>
+          <th>Reported Date</th>
+          <th>Inspected Date</th>
+          <th>Inspected?</th>
+          <th>Repair Date</th>
+          <th>Repaired?</th>
+          <th v-if="isAdmin">Severity</th>
+        </tr>
 
-      <tr v-for="pothole in potholes" v-bind:key="pothole.id">
-        <td>
-          <router-link
-            v-if="isAdmin"
-            v-bind:to="{ name: 'getPothole', params: { id: pothole.id } }"
-          >
-            {{ pothole.address }}</router-link
-          >
+        <tr v-for="pothole in potholes" v-bind:key="pothole.id">
+          <td>
+            <router-link
+              v-if="isAdmin"
+              v-bind:to="{ name: 'getPothole', params: { id: pothole.id } }"
+            >
+              {{ pothole.address }}</router-link
+            >
 
-          <a v-else> {{ pothole.address }}</a>
-        </td>
-        <td>{{ pothole.zipcode }}</td>
-        <td>{{ pothole.locationDetails }}</td>
-        <td>{{ pothole.description }}</td>
-        <td>{{ pothole.potentialDamage }}</td>
-        <td>{{ pothole.inTraffic }}</td>
-        <td>{{ pothole.reportedDate }}</td>
-        <td>{{ pothole.inspectedDate }}</td>
-        <td>{{ pothole.inspected }}</td>
-        <td>{{ pothole.repairDate }}</td>
-        <td>{{ pothole.repaired }}</td>
-        <td v-if="isAdmin">{{ pothole.severity }}</td>
-      </tr>
-    </table>
+            <a v-else> {{ pothole.address }}</a>
+          </td>
+          <td>{{ pothole.zipcode }}</td>
+          <td>{{ pothole.locationDetails }}</td>
+          <td>{{ pothole.description }}</td>
+          <td>{{ pothole.potentialDamage }}</td>
+          <td>{{ pothole.inTraffic }}</td>
+          <td>{{ pothole.reportedDate }}</td>
+          <td>{{ pothole.inspectedDate }}</td>
+          <td>{{ pothole.inspected }}</td>
+          <td>{{ pothole.repairDate }}</td>
+          <td>{{ pothole.repaired }}</td>
+          <td v-if="isAdmin">{{ pothole.severity }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -55,6 +79,11 @@ export default {
   name: "home",
   data() {
     return {
+      filterAddress: "",
+      filterZipCode: "",
+      filterReportedDate: "",
+      filterInTraffic: false,
+      filterSeverity: "",
       potholes: [],
     };
   },
@@ -66,6 +95,20 @@ export default {
   computed: {
     isAdmin() {
       return this.$store.getters.userIsAdmin;
+    },
+    filteredPotholes() {
+      return this.potholes.filter((pothole) => {
+        return (
+          pothole.address
+            .toLowerCase()
+            .includes(this.filterAddress.toLowerCase()) &&
+          pothole.zipcode.includes(this.filterZipCode) &&
+          (this.filterReportedDate === "" ||
+            pothole.reportedDate === this.filterReportedDate) &&
+          (!this.filterInTraffic || pothole.inTraffic) &&
+          (this.isAdmin ? pothole.severity === this.filterSeverity : true)
+        );
+      });
     },
   },
 };
@@ -92,6 +135,7 @@ body {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   width: 80%;
   margin: auto;
+  width: 100%;
 }
 
 h2 {
