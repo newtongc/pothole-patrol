@@ -53,10 +53,8 @@
     </form>
   </div>
 </template>
-
 <script>
 import authService from "../services/AuthService";
-
 export default {
   name: "register",
   data() {
@@ -104,7 +102,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .form-input-group {
   margin-bottom: 1rem;
@@ -112,7 +109,6 @@ export default {
 label {
   margin-right: 0.5rem;
 }
-
 #register {
   text-align: center;
   border-radius: 20px;
@@ -121,19 +117,26 @@ label {
   height: 40vh;
   margin: auto;
 }
-
 body {
   padding: 50;
 }
-
 h1 {
   color: white;
   font-size: 40px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
 }
-
 .form-input-group {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 </style>
+
+
+
+
+
+
+
+
+
+

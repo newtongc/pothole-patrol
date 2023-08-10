@@ -1,6 +1,6 @@
 <template>
   <div class="inspection-form pothole-details">
-    <h1>Location: {{ pothole.location }}</h1>
+    <h1>Nearest Address: {{ pothole.address }}</h1>
     <h1>Description: {{ pothole.description }}</h1>
     <h1>Severity: {{ pothole.severity }}</h1>
     <h1>Date Reported: {{ pothole.reportedDate }}</h1>
@@ -18,25 +18,17 @@
         <label for="repairDate">Repair Date:</label>
         <input type="date" id="repairDate" />
       </div>
-
       <button type="submit">Submit</button>
     </form>
   </div>
 </template>
-
 <script>
 import PotholeService from "../services/PotholeService";
-
 export default {
   name: "pothole-details",
-  //   props: { potholeID: Number },
   data() {
     return {
       pothole: {},
-      //   id: null,
-      //   location: "",
-      //   description: "",
-      //   severity: null,
     };
   },
   created() {
@@ -54,7 +46,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 h2 {
   top: -230px;
@@ -87,7 +78,6 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
-
 .form-group {
   margin-bottom: 1px;
 }
@@ -113,7 +103,7 @@ input[type="checkbox"] {
   margin-bottom: 10px;
 }
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: #007BFF;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -122,15 +112,23 @@ button[type="submit"] {
   transition: background-color 0.3s;
 }
 button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #0056B3;
 }
 button {
   display: flex;
   margin: auto;
 }
-
 input #inspected {
   display: flex;
   justify-content: center;
 }
 </style>
+
+
+
+
+
+
+
+
+

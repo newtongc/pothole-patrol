@@ -1,46 +1,98 @@
 <template>
   <div class="container">
-    <h1>Report A Pothole</h1>
+    <div class="title">Report A Pothole</div>
     <form>
-      <label for="location">Location:</label>
+      <div class="form-group" id="top">
+        <label for="address">Address:</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          v-model="pothole.address"
+          required
+        />
+      </div>
+      <div class="form-group" id="top">
+        <label for="zipcode">Zip Code:</label>
+        <input
+          type="text"
+          id="zipcode"
+          name="zipcode"
+          v-model="pothole.zipcode"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="otherLocDetails">Other Location Details:</label>
+        <br />
+        <textarea
+          type="text"
+          id="otherLocDetails"
+          name="otherLocDetails"
+          class="full-width-group"
+          v-model="pothole.otherLocDetails"
+          placeholder="ex near intersection of... across the street from..."
+          rows="4"
+        />
+      </div>
+      <div class="form-group">
+        <label for="additionalInfo">Additional Information:</label>
+        <br />
+        <textarea
+          type="text"
+          id="additionalInfo"
+          name="additionalInfo"
+          class="full-width-group"
+          v-model="pothole.additionalInfo"
+          rows="4"
+        />
+      </div>
+      <div class="checkbox-group">
+        <label for="inTraffic">In Traffic?</label>
+        <input
+          type="checkbox"
+          id="inTraffic"
+          name="inTraffic"
+          v-model="pothole.inTraffic"
+        />
+        <label for="contact">Can we contact you for more information?</label>
+        <input
+          type="checkbox"
+          id="contact"
+          name="contact"
+          v-model="pothole.canContact"
+        />
+        <label for="potentialForDamage">Potential For Damage?</label>
+        <input
+          type="checkbox"
+          id="potentialForDamage"
+          name="potentialForDamage"
+          v-model="pothole.potentialForDamage"
+        />
+      </div>
       <input
-        type="text"
-        id="location"
-        name="location"
-        v-model="pothole.location"
-        required
-      /><br /><br />
-      <label for="description">Description:</label>
-      <input
-        type="text"
-        id="description"
-        name="description"
-        v-model="pothole.description"
-        required
-      /><br /><br />
-      <!-- <label for="severity">Severity:</label>
-      <select id="severity" name="severity" v-model="pothole.severity">
-        <option value="1">1 - High</option>
-        <option value="2">2 - Medium</option>
-        <option value="3">3 - Low</option></select
-      ><br /><br /> -->
-      <label for="contact">Can we contact you for for more information? </label>
-      <input type="checkbox" id="contact" name="contact" /><br /><br />
-      <input type="submit" value="Submit" v-on:click.prevent="savePothole()" />
+        type="submit"
+        value="Submit"
+        class="submit-button"
+        v-on:click.prevent="savePothole()"
+      />
     </form>
   </div>
 </template>
-
 <script>
 import potholeService from "../services/PotholeService.js";
-
 export default {
   name: "pothole-form",
   data() {
     return {
       pothole: {
-        description: "",
-        location: "",
+        address: "",
+        zipcode: "",
+        inTraffic: false,
+        damagePotential: false,
+        additionalInfo: "",
+        otherLocDetails: "",
+        canContact: false,
       },
     };
   },
@@ -55,7 +107,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 body {
   display: flex;
@@ -63,7 +114,13 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #f5f5f5;
+  background-color: #F5F5F5;
+}
+.title {
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  font-size: 30px;
 }
 .container {
   background-color: rgba(128, 128, 128, 0.822);
@@ -72,6 +129,8 @@ body {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   width: 300px;
   margin: auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
 }
 form {
   display: flex;
@@ -83,6 +142,16 @@ form {
   height: 40vh; */
   margin: auto;
 }
+.form-group textarea[class="full-width-group"] {
+  width: 100%;
+  height: 60px;
+}
+.form-group input[type="text"] {
+  align-items: right;
+}
+#top {
+  justify-content: space-between;
+}
 label,
 input,
 select,
@@ -91,7 +160,7 @@ checkbox {
   font-weight: bold;
 }
 input[type="submit"] {
-  background-color: #007bff;
+  background-color: #007BFF;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -99,9 +168,32 @@ input[type="submit"] {
   cursor: pointer;
 }
 input[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #0056B3;
 }
 .container > h1 {
   font-size: 30px;
 }
+.checkbox-group {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: right;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+.checkbox-group label {
+  text-align: left;
+}
 </style>
+
+
+
+
+
+
+
+
+
+

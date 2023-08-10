@@ -52,4 +52,13 @@ public class PotholeController {
         }
     }
 
+    @RequestMapping(path = "/potholes/{id}", method = RequestMethod.DELETE)
+    public int deletePotholeById(@PathVariable int id) {
+        int pothole = jdbcPotholeDao.deletePothole(id);
+        if (pothole == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No pothole found");
+        } else {
+            return pothole;
+        }
+    }
 }

@@ -9,11 +9,21 @@ public class RegisterPotholeDto {
     @NotEmpty
     private String description;
     @NotEmpty
-    private String location;
+    private String address;
    
     private int severity;
 
    private Date reportedDate;
+
+    private Date inspectedDate;
+    private Date repairDate;
+    private boolean canContact;
+    private boolean inspected;
+    private boolean repaired;
+    private String zipcode;
+    private boolean inTraffic;
+    private boolean potentialDamage;
+    private String locationDetails;
 
 
 
@@ -25,12 +35,12 @@ public class RegisterPotholeDto {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public int getSeverity() {
@@ -47,5 +57,77 @@ public class RegisterPotholeDto {
 
     public void setReportedDate(Date reportedDate) {
         this.reportedDate = reportedDate;
+    }
+
+    public Date getInspectedDate() {
+        return inspectedDate;
+    }
+
+    public void setInspectedDate(Date inspectedDate) {
+        this.inspectedDate = inspectedDate;
+    }
+
+    public Date getRepairDate() {
+        return repairDate;
+    }
+
+    public void setRepairDate(Date repairDate) {
+        this.repairDate = repairDate;
+    }
+
+    public boolean isCanContact() {
+        return canContact;
+    }
+
+    public void setCanContact(boolean canContact) {
+        this.canContact = canContact;
+    }
+
+    public boolean isInspected() {
+        return inspected;
+    }
+
+    public void setInspected(boolean inspected) {
+        this.inspected = inspected;
+    }
+
+    public boolean isRepaired() {
+        return repaired;
+    }
+
+    public void setRepaired(boolean repaired) {
+        this.repaired = repaired;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public boolean isInTraffic() {
+        return inTraffic;
+    }
+
+    public void setInTraffic(boolean inTraffic) {
+        this.inTraffic = inTraffic;
+    }
+
+    public boolean isPotentialDamage() {
+        return potentialDamage;
+    }
+
+    public void setPotentialDamage(boolean potentialDamage) {
+        this.potentialDamage = potentialDamage;
+    }
+
+    public String getLocationDetails() {
+        return locationDetails;
+    }
+
+    public void setLocationDetails(String locationDetails) {
+        this.locationDetails = locationDetails;
     }
 }

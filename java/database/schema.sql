@@ -7,14 +7,24 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
+	phone_number varchar(12),
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 CREATE TABLE potholes (
 pothole_id SERIAL,
-location varchar(200),
+address varchar(200),
 description varchar(500),
 severity int constraint threeDigits check (severity between 1 and 3),
 reported_date date not null default current_date,
+inspected_date date,
+repair_date date,
+can_contact boolean,
+inspected boolean,
+repaired boolean,
+zipcode varchar(5),
+in_traffic boolean,
+potential_damage boolean,
+location_details varchar(500),
 CONSTRAINT PK_potholes PRIMARY KEY (pothole_id)
 );
 CREATE TABLE user_potholes (
