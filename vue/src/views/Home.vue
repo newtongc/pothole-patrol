@@ -5,11 +5,15 @@
     <table>
       <tr>
         <th>Nearest Address</th>
+<<<<<<< HEAD
         <th>Zip Code</th>
         <th>Location Details</th>
         <th>Details</th>
         <th>Potential For Damage</th>
         <th>In Traffic</th>
+=======
+        <th>Description</th>
+>>>>>>> f2fa5757317cc81ab6ed1fce0449744a0bfd9ecb
         <th>Reported Date</th>
         <th>Inspected Date</th>
         <th>Inspected?</th>
