@@ -35,7 +35,7 @@
       </div>
       <div class="form-input-group">
         <input
-          type="number"
+          type="text"
           v-model="user.phoneNumber"
           id="phoneNumber"
           placeholder="###-###-####"

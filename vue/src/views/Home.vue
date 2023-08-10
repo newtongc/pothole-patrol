@@ -4,9 +4,17 @@
 
     <table>
       <tr>
-        <th>Location</th>
-        <th>Description</th>
+        <th>Nearest Address</th>
+        <th>Zip Code</th>
+        <th>Location Details</th>
+        <th>Details</th>
+        <th>Potential For Damage</th>
+        <th>In Traffic</th>
         <th>Reported Date</th>
+        <th>Inspected Date</th>
+        <th>Inspected?</th>
+        <th>Repair Date</th>
+        <th>Repaired?</th>
         <th v-if="isAdmin">Severity</th>
       </tr>
 
@@ -16,13 +24,21 @@
             v-if="isAdmin"
             v-bind:to="{ name: 'getPothole', params: { id: pothole.id } }"
           >
-            {{ pothole.location }}</router-link
+            {{ pothole.address }}</router-link
           >
 
-          <a v-else> {{ pothole.location }}</a>
+          <a v-else> {{ pothole.address }}</a>
         </td>
+        <td>{{ pothole.zipcode }}</td>
+        <td>{{ pothole.locationDetails }}</td>
         <td>{{ pothole.description }}</td>
+        <td>{{ pothole.potentialDamage }}</td>
+        <td>{{ pothole.inTraffic }}</td>
         <td>{{ pothole.reportedDate }}</td>
+        <td>{{ pothole.inspectedDate }}</td>
+        <td>{{ pothole.inspected }}</td>
+        <td>{{ pothole.repairDate }}</td>
+        <td>{{ pothole.repaired }}</td>
         <td v-if="isAdmin">{{ pothole.severity }}</td>
       </tr>
     </table>

@@ -103,7 +103,7 @@ input[type="checkbox"] {
   margin-bottom: 10px;
 }
 button[type="submit"] {
-  background-color: #007BFF;
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -112,7 +112,7 @@ button[type="submit"] {
   transition: background-color 0.3s;
 }
 button[type="submit"]:hover {
-  background-color: #0056B3;
+  background-color: #0056b3;
 }
 button {
   display: flex;

@@ -14,16 +14,18 @@ public class User {
    private String password;
    @JsonIgnore
    private boolean activated;
+   private String phoneNumber;
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
 
-   public User(int id, String username, String password, String authorities) {
+   public User(int id, String username, String password, String authorities, String phoneNumber) {
       this.id = id;
       this.username = username;
       this.password = password;
       if (authorities != null) this.setAuthorities(authorities);
       this.activated = true;
+      this.phoneNumber = phoneNumber;
    }
 
    public int getId() {
@@ -50,6 +52,14 @@ public class User {
       this.password = password;
    }
 
+   public String getPhoneNumber() {
+      return phoneNumber;
+   }
+
+   public void setPhoneNumber(String phoneNumber) {
+      this.phoneNumber = phoneNumber;
+   }
+
    public boolean isActivated() {
       return activated;
    }
@@ -73,6 +83,7 @@ public class User {
          this.authorities.add(new Authority(authority));
       }
    }
+
 
    @Override
    public boolean equals(Object o) {

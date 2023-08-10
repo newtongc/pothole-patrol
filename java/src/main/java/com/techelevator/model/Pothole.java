@@ -1,6 +1,8 @@
 package com.techelevator.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class Pothole {
@@ -19,8 +21,11 @@ public class Pothole {
     private boolean inTraffic;
     private boolean potentialDamage;
     private String locationDetails;
+    private int reporterId;
 
-    public Pothole(int id, String description, int severity, String address, Date reportedDate, Date inspectedDate, Date repairDate, boolean canContact, boolean inspected, boolean repaired, String zipcode, boolean inTraffic, boolean potentialDamage, String locationDetails) {
+    public Pothole(int id, String description, int severity, String address, Date reportedDate, Date inspectedDate,
+                   Date repairDate, boolean canContact, boolean inspected, boolean repaired, String zipcode,
+                   boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId) {
         this.id = id;
         this.description = description;
         this.severity = severity;
@@ -35,6 +40,7 @@ public class Pothole {
         this.inTraffic = inTraffic;
         this.potentialDamage = potentialDamage;
         this.locationDetails = locationDetails;
+        this.reporterId = reporterId;
     }
 
     public Pothole() {
@@ -150,5 +156,13 @@ public class Pothole {
 
     public void setLocationDetails(String locationDetails) {
         this.locationDetails = locationDetails;
+    }
+
+    public int getReporterId() {
+        return reporterId;
+    }
+
+    public void setReporterId(int reporterId) {
+        this.reporterId = reporterId;
     }
 }

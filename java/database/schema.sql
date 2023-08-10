@@ -25,15 +25,18 @@ zipcode varchar(5),
 in_traffic boolean,
 potential_damage boolean,
 location_details varchar(500),
-CONSTRAINT PK_potholes PRIMARY KEY (pothole_id)
+reporter_id int,
+CONSTRAINT PK_potholes PRIMARY KEY (pothole_id),
+constraint FK_users_user_id foreign key (reporter_id) references users (user_id)
+
 );
-CREATE TABLE user_potholes (
-pothole_id int,
-user_id int
-, constraint PK_user_potholes primary key (pothole_id, user_id)
-, constraint FK_users_user_id foreign key (user_id) references users (user_id)
-, constraint fk_potholes_pothole_id foreign key (pothole_id) references potholes (pothole_id)
-);
+--CREATE TABLE user_potholes (
+--pothole_id int,
+--user_id int
+--, constraint PK_user_potholes primary key (pothole_id, user_id)
+--, constraint FK_users_user_id foreign key (user_id) references users (user_id)
+--, constraint fk_potholes_pothole_id foreign key (pothole_id) references potholes (pothole_id)
+--);
 
 
 COMMIT TRANSACTION;

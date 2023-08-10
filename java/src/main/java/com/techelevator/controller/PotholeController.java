@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.JdbcPotholeDao;
 import com.techelevator.dao.PotholeDao;
+import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Pothole;
 import com.techelevator.model.RegisterPotholeDto;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +22,12 @@ import java.util.List;
 public class PotholeController {
     private PotholeDao potholeDao;
     private JdbcPotholeDao jdbcPotholeDao;
+    private UserDao userDao;
 
-    public PotholeController(PotholeDao potholeDao, JdbcPotholeDao jdbcPotholeDao) {
+    public PotholeController(PotholeDao potholeDao, JdbcPotholeDao jdbcPotholeDao, UserDao userDao) {
         this.potholeDao = potholeDao;
         this.jdbcPotholeDao = jdbcPotholeDao;
+        this.userDao = userDao;
     }
 
     @RequestMapping(path = "/potholes", method = RequestMethod.GET)
@@ -31,16 +35,21 @@ public class PotholeController {
         return jdbcPotholeDao.getPotholes();
     }
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/potholes", method = RequestMethod.POST)
-    public void addPothole(@Valid @RequestBody RegisterPotholeDto newPothole) {
+    @RequestMapping(path = "/potholes", method = RequestMethod.POST )
+    public Pothole addPothole(@Valid @RequestBody RegisterPotholeDto newPothole, Principal principal) {
+        User user = userDao.getUserByUsername(principal.getName());
+        newPothole.setReporterId(user.getId());
+
+        Pothole pothole;
         try {
-            Pothole pothole = potholeDao.createPothole(newPothole);
+            pothole = potholeDao.createPothole(newPothole);
             if (pothole == null) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pothole registration failed. 111");
             }
         } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User registration failed.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Pothole registration failed.", e);
         }
+        return pothole;
     }
     @RequestMapping(path = "/potholes/{id}", method = RequestMethod.GET)
     public Pothole getPotholeById(@PathVariable int id){

@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,15 +19,27 @@ public class RegisterPotholeDto {
 
     private Date inspectedDate;
     private Date repairDate;
+    @JsonProperty("can_contact")
     private boolean canContact;
     private boolean inspected;
     private boolean repaired;
     private String zipcode;
+    @JsonProperty("in_traffic")
     private boolean inTraffic;
+    @JsonProperty("potential_damage")
     private boolean potentialDamage;
+    @JsonProperty("location_details")
     private String locationDetails;
+    private int reporterId;
 
 
+    public int getReporterId() {
+        return reporterId;
+    }
+
+    public void setReporterId(int reporterId) {
+        this.reporterId = reporterId;
+    }
 
     public String getDescription() {
         return description;

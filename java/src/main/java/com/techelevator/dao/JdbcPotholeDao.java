@@ -23,7 +23,9 @@ public class JdbcPotholeDao implements PotholeDao {
     @Override
     public List<Pothole> getPotholes() {
         List<Pothole> potholes = new ArrayList<>();
-        String sql = "SELECT pothole_id, description, address, severity, reported_date, inspected_date, repair_date, can_contact, inspected, repaired, zipcode, in_traffic, potential_damage, location_details FROM potholes";
+        String sql = "SELECT pothole_id, description, address, severity, reported_date, inspected_date, repair_date, " +
+                "can_contact, inspected, repaired, zipcode, in_traffic, potential_damage, location_details, " +
+                "reporter_id FROM potholes";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -39,7 +41,9 @@ public class JdbcPotholeDao implements PotholeDao {
     @Override
     public Pothole getPotholeById(int id) {
         Pothole pothole = null;
-        String sql = "SELECT pothole_id, description, address, severity, reported_date, inspected_date, repair_date, can_contact, inspected, repaired, zipcode, in_traffic, potential_damage, location_details FROM potholes WHERE pothole_id = ?";
+        String sql = "SELECT pothole_id, description, address, severity, reported_date, inspected_date, repair_date, " +
+                "can_contact, inspected, repaired, zipcode, in_traffic, potential_damage, location_details, reporter_id " +
+                "FROM potholes WHERE pothole_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
             if (results.next()) {
@@ -54,10 +58,14 @@ public class JdbcPotholeDao implements PotholeDao {
     @Override
     public Pothole createPothole(RegisterPotholeDto pothole) {
         Pothole newPothole = null;
-        String insertPotholeSql = "INSERT INTO potholes (address, description, zipcode, location_details, potential_damage, in_traffic, can_contact) values (?, ?, ?, ?, ?, ?, ?) RETURNING pothole_id";
+        String insertPotholeSql = "INSERT INTO potholes (address, description, zipcode, location_details, " +
+                "potential_damage, in_traffic, can_contact, reporter_id) " +
+                "values (?, ?, ?, ?, ?, ?, ?, ?) RETURNING pothole_id";
 
         try {
-            int newPotholeId = jdbcTemplate.queryForObject(insertPotholeSql, int.class, pothole.getAddress(), pothole.getDescription(), pothole.getZipcode(), pothole.getLocationDetails(), pothole.isPotentialDamage(), pothole.isInTraffic(), pothole.isCanContact());
+            int newPotholeId = jdbcTemplate.queryForObject(insertPotholeSql, int.class, pothole.getAddress(),
+                    pothole.getDescription(), pothole.getZipcode(), pothole.getLocationDetails(),
+                    pothole.isPotentialDamage(), pothole.isInTraffic(), pothole.isCanContact(), pothole.getReporterId());
             newPothole = getPotholeById(newPotholeId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
@@ -99,6 +107,7 @@ public class JdbcPotholeDao implements PotholeDao {
         pothole.setInTraffic(rs.getBoolean("in_traffic"));
         pothole.setPotentialDamage(rs.getBoolean("potential_damage"));
         pothole.setLocationDetails(rs.getString("location_details"));
+        pothole.setReporterId(rs.getInt("reporter_id"));
         return pothole;
     }
 }

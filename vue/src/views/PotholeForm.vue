@@ -30,7 +30,7 @@
           id="otherLocDetails"
           name="otherLocDetails"
           class="full-width-group"
-          v-model="pothole.otherLocDetails"
+          v-model="pothole.location_details"
           placeholder="ex near intersection of... across the street from..."
           rows="4"
         />
@@ -43,7 +43,7 @@
           id="additionalInfo"
           name="additionalInfo"
           class="full-width-group"
-          v-model="pothole.additionalInfo"
+          v-model="pothole.description"
           rows="4"
         />
       </div>
@@ -53,21 +53,21 @@
           type="checkbox"
           id="inTraffic"
           name="inTraffic"
-          v-model="pothole.inTraffic"
+          v-model="pothole.in_traffic"
         />
         <label for="contact">Can we contact you for more information?</label>
         <input
           type="checkbox"
           id="contact"
           name="contact"
-          v-model="pothole.canContact"
+          v-model="pothole.can_contact"
         />
         <label for="potentialForDamage">Potential For Damage?</label>
         <input
           type="checkbox"
           id="potentialForDamage"
           name="potentialForDamage"
-          v-model="pothole.potentialForDamage"
+          v-model="pothole.potential_damage"
         />
       </div>
       <input
@@ -88,11 +88,11 @@ export default {
       pothole: {
         address: "",
         zipcode: "",
-        inTraffic: false,
-        damagePotential: false,
-        additionalInfo: "",
-        otherLocDetails: "",
-        canContact: false,
+        in_traffic: false,
+        potential_damage: false,
+        description: "",
+        location_details: "",
+        can_contact: false,
       },
     };
   },
@@ -114,13 +114,14 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 .title {
   text-align: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: white;
   font-size: 30px;
+  font-weight: bold;
 }
 .container {
   background-color: rgba(128, 128, 128, 0.822);
@@ -160,7 +161,7 @@ checkbox {
   font-weight: bold;
 }
 input[type="submit"] {
-  background-color: #007BFF;
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -168,7 +169,7 @@ input[type="submit"] {
   cursor: pointer;
 }
 input[type="submit"]:hover {
-  background-color: #0056B3;
+  background-color: #0056b3;
 }
 .container > h1 {
   font-size: 30px;
@@ -185,6 +186,14 @@ input[type="submit"]:hover {
 }
 .checkbox-group label {
   text-align: left;
+}
+#top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between; /* Add this to distribute items evenly */
+  margin-bottom: 10px;
+  padding-top: 10px;
 }
 </style>
 
