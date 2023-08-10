@@ -1,34 +1,34 @@
 <template>
   <div class="home">
     <h2>Home</h2>
-
-    <div class="filter-container">
-      <input
-        type="text"
-        class="filter-input"
-        placeholder="Filter by Street Name"
-        v-model="filterStreet"
-      />
-      <input
-        type="text"
-        class="filter-input"
-        placeholder="Filter by Zip Code"
-        v-model="filterZipCode"
-      />
-      <input
-        type="date"
-        class="filter-input"
-        placeholder="Filter by Reported Date"
-        v-model="filterReportedDate"
-      />
-      <select class="filter-input" v-if="isAdmin" v-model="filterSeverity">
-        <option value="">Filter by Severity</option>
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
-    </div>
     <div class="table-container">
+      <div class="filter-container">
+        <input
+          type="text"
+          class="filter-input"
+          placeholder="Filter by Street Name"
+          v-model="filterStreet"
+        />
+        <input
+          type="text"
+          class="filter-input"
+          placeholder="Filter by Zip Code"
+          v-model="filterZipCode"
+        />
+        <input
+          type="date"
+          class="filter-input"
+          placeholder="Filter by Reported Date"
+          v-model="filterReportedDate"
+        />
+        <select class="filter-input" v-if="isAdmin" v-model="filterSeverity">
+          <option value="">Filter by Severity</option>
+          <option value="3">Low</option>
+          <option value="2">Medium</option>
+          <option value="1">High</option>
+        </select>
+      </div>
+
       <table>
         <tr>
           <th>Nearest Address</th>
@@ -109,6 +109,12 @@ export default {
           (this.isAdmin ? pothole.severity === this.filterSeverity : true)
         );
       });
+    },
+  },
+  methods: {
+    applyFilters() {
+      // Trigger filtering by updating the filteredPotholes computed property
+      this.filteredPotholes;
     },
   },
 };
