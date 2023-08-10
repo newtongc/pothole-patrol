@@ -4,7 +4,7 @@
 
     <table>
       <tr>
-        <th>Location</th>
+        <th>Nearest Address</th>
         <th>Description</th>
         <th>Reported Date</th>
         <th v-if="isAdmin">Severity</th>
@@ -16,10 +16,10 @@
             v-if="isAdmin"
             v-bind:to="{ name: 'getPothole', params: { id: pothole.id } }"
           >
-            {{ pothole.location }}</router-link
+            {{ pothole.address }}</router-link
           >
 
-          <a v-else> {{ pothole.location }}</a>
+          <a v-else> {{ pothole.address }}</a>
         </td>
         <td>{{ pothole.description }}</td>
         <td>{{ pothole.reportedDate }}</td>
