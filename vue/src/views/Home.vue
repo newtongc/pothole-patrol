@@ -2,6 +2,7 @@
   <div class="home">
     <h2>Home</h2>
 
+<<<<<<< HEAD
     <div class="filter-container">
       <input
         type="text"
@@ -44,6 +45,23 @@
           <th>Repaired?</th>
           <th v-if="isAdmin">Severity</th>
         </tr>
+=======
+    <table>
+      <tr>
+        <th>Nearest Address</th>
+        <th>Zip Code</th>
+        <th>Location Details</th>
+        <th>Details</th>
+        <th>Potential For Damage</th>
+        <th>In Traffic</th>
+        <th>Reported Date</th>
+        <th>Inspected Date</th>
+        <th>Inspected?</th>
+        <th>Repair Date</th>
+        <th>Repaired?</th>
+        <th v-if="isAdmin">Severity</th>
+      </tr>
+>>>>>>> 29c2888bf20ec2328e8a63df8c36ed7507ef917d
 
         <tr v-for="pothole in potholes" v-bind:key="pothole.id">
           <td>
