@@ -1,27 +1,44 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'login' }">Login</router-link
+      <button @click="$router.push({ name: 'home' })">Home</button>&nbsp;|&nbsp;
+      <button @click="$router.push({ name: 'login' })">Login</button
       >&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'addPothole' }"
-        >Report A Pothole</router-link
+      <button @click="$router.push({ name: 'addPothole' })">
+        Report A Pothole</button
       >&nbsp;|&nbsp;
-      <router-link
-        v-bind:to="{ name: 'logout' }"
+      <button
         v-if="$store.state.token != ''"
-        >Logout</router-link
+        @click="$router.push({ name: 'logout' })"
       >
+        Logout
+      </button>
 
       <router-view />
     </div>
   </div>
 </template>
+
+
 <style>
-a {
-  color: white;
+#nav {
+  padding: 10px;
+  text-align: left;
 }
-/* html {
-  background-color: #696969;
-} */
+
+#nav button {
+  background-color: rgba(85, 85, 85, 0.822);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#nav button:hover {
+  background-color: #777;
+}
 </style>
+
