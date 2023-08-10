@@ -88,7 +88,7 @@ label {
 #login {
   text-align: center;
   border-radius: 20px;
-  background-color: rgba(128, 128, 128, 0.603);
+  background-color: rgba(128, 128, 128, 0.822);
   width: 50%;
   height: 40vh;
   margin: auto;

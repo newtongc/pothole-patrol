@@ -7,12 +7,12 @@
       </div>
       <div class="form-input-group">
         <input
-          type="text"
+          type="email"
           id="username"
           v-model="user.username"
           required
           autofocus
-          placeholder="Username"
+          placeholder="Email Address"
         />
       </div>
       <div class="form-input-group">
@@ -31,6 +31,14 @@
           v-model="user.confirmPassword"
           required
           placeholder="Confirm Password"
+        />
+      </div>
+      <div class="form-input-group">
+        <input
+          type="number"
+          v-model="user.phoneNumber"
+          id="phoneNumber"
+          placeholder="###-###-####"
         />
       </div>
       <button type="submit">
@@ -58,6 +66,7 @@ export default {
         password: "",
         confirmPassword: "",
         role: "user",
+        phoneNumber: "",
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
@@ -107,7 +116,7 @@ label {
 #register {
   text-align: center;
   border-radius: 20px;
-  background-color: gray;
+  background-color: rgba(128, 128, 128, 0.822);
   width: 50%;
   height: 40vh;
   margin: auto;
@@ -118,9 +127,10 @@ body {
 }
 
 h1 {
-  color: black;
+  color: white;
   font-size: 40px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
 }
 
 .form-input-group {

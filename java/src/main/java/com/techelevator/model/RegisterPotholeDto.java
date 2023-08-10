@@ -10,7 +10,7 @@ public class RegisterPotholeDto {
     private String description;
     @NotEmpty
     private String location;
-   @NotNull
+   
     private int severity;
 
    private Date reportedDate;
