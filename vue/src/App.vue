@@ -1,13 +1,16 @@
 <template>
   <div id="app">
     <div id="nav">
-      <button @click="$router.push({ name: 'home' })">Home</button>&nbsp;|&nbsp;
-      <button @click="$router.push({ name: 'login' })">Login</button
+      <button id="homebtn" @click="$router.push({ name: 'home' })">Home</button
       >&nbsp;|&nbsp;
-      <button @click="$router.push({ name: 'addPothole' })">
+      <button id="homebtn" @click="$router.push({ name: 'login' })">
+        Login</button
+      >&nbsp;|&nbsp;
+      <button id="homebtn" @click="$router.push({ name: 'addPothole' })">
         Report A Pothole</button
       >&nbsp;|&nbsp;
       <button
+        id="homebtn"
         v-if="$store.state.token != ''"
         @click="$router.push({ name: 'logout' })"
       >
@@ -21,12 +24,13 @@
 
 
 <style>
+/* @import url("https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap"); */
 #nav {
   padding: 10px;
   text-align: left;
 }
 
-#nav button {
+#homebtn {
   background-color: rgba(85, 85, 85, 0.822);
   color: #fff;
   border: none;
@@ -37,7 +41,7 @@
   font-size: 16px;
 }
 
-#nav button:hover {
+#homebtn:hover {
   background-color: #777;
 }
 </style>

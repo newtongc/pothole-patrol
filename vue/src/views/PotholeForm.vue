@@ -45,6 +45,7 @@
           class="full-width-group"
           v-model="pothole.description"
           rows="4"
+          placeholder="Enter any additional information here. Enter N/A if there is none"
         />
       </div>
       <div class="checkbox-group">
@@ -98,11 +99,25 @@ export default {
   },
   methods: {
     savePothole() {
-      potholeService.createPothole(this.pothole).then((response) => {
-        if (response.status === 201) {
-          this.$router.push("/");
-        }
-      });
+      if (this.pothole.address.length === 0) {
+        alert("Please enter an Address.");
+      }
+      if (this.pothole.description.length === 0) {
+        alert(
+          "Please fill out the Additional Information box. Enter N/A if there are none"
+        );
+      }
+      if (this.pothole.zipcode.length != 5) {
+        alert("Zip Code must contain exactly 5 digits.");
+      } else if (this.pothole.location_details.length === 0) {
+        alert("Please fill out Other Location Details box. ");
+      } else if (
+        potholeService.createPothole(this.pothole).then((response) => {
+          if (response.status === 201) {
+            this.$router.push("/");
+          }
+        })
+      );
     },
   },
 };
@@ -129,7 +144,7 @@ body {
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   width: 300px;
-  margin: auto;
+  margin: 10px auto;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: white;
 }

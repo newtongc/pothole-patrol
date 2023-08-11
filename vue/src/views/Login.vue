@@ -27,7 +27,7 @@
           placeholder="Password"
         />
       </div>
-      <button type="submit">
+      <button id="loginBtn" type="submit">
         Sign in <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
       </button>
       <p>
@@ -107,5 +107,16 @@ h3 {
 
 .form-input-group {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+#loginBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#loginBtn:hover {
+  background-color: #0056b3;
 }
 </style>
