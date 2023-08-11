@@ -9,8 +9,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+import java.sql.Types;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+
 @Component
 public class JdbcPotholeDao implements PotholeDao {
     private final JdbcTemplate jdbcTemplate;
@@ -109,5 +114,38 @@ public class JdbcPotholeDao implements PotholeDao {
         pothole.setLocationDetails(rs.getString("location_details"));
         pothole.setReporterId(rs.getInt("reporter_id"));
         return pothole;
+    }
+    public List<Pothole> filterPotholes(LocalDate date, String zipcode, String address) {
+        List<Pothole> potholes = new ArrayList<>();
+        List<Object> args = new ArrayList<>();
+        List<Integer> types = new ArrayList<>();
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM potholes WHERE 1=1");
+        if (date != null) {
+            queryBuilder.append(" AND reported_date = ?");
+            args.add(date);
+            types.add(Types.DATE);
+        }
+        if (zipcode != null && !zipcode.isEmpty()) {
+            queryBuilder.append(" AND zipcode = ?");
+            args.add(zipcode);
+            types.add(Types.VARCHAR);
+        }
+        if (address != null && !address.isEmpty()) {
+            queryBuilder.append(" AND address ilike ?");
+            args.add(address);
+            types.add(Types.VARCHAR);
+        }
+        String sql = queryBuilder.toString();
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, args.toArray(),
+                    types.stream().mapToInt(i -> i).toArray());
+            while (results.next()) {
+                Pothole pothole = mapRowToPothole(results);
+                potholes.add(pothole);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return potholes;
     }
 }

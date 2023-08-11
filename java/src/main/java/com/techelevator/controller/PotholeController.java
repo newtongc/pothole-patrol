@@ -4,16 +4,15 @@ import com.techelevator.dao.JdbcPotholeDao;
 import com.techelevator.dao.PotholeDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.Pothole;
-import com.techelevator.model.RegisterPotholeDto;
-import com.techelevator.model.RegisterUserDto;
-import com.techelevator.model.User;
+import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,5 +68,9 @@ public class PotholeController {
         } else {
             return pothole;
         }
+    }
+    @RequestMapping(path = "/potholes/filter", method = RequestMethod.GET)
+    public List<Pothole> getPotholeByFilter(@RequestBody(required = true) Filter filter){
+        return jdbcPotholeDao.filterPotholes(filter.getDate(), filter.getZipcode(), filter.getAddress());
     }
 }
