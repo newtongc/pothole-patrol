@@ -165,7 +165,7 @@ public class JdbcPotholeDao implements PotholeDao {
         }
         if (address != null && !address.isEmpty()) {
             queryBuilder.append(" AND address ilike ?");
-            args.add(address);
+            args.add("%"+address+"%");
             types.add(Types.VARCHAR);
         }
         String sql = queryBuilder.toString();

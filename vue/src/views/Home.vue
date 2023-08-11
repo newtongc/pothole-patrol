@@ -28,7 +28,7 @@
           <option value="2">Medium</option>
           <option value="1">High</option>
         </select>
-        <button type="submit">Filter</button>
+        <button @click="fetchPotholes()">Filter</button>
       </div>
 
       <table>
@@ -47,7 +47,7 @@
           <th v-if="isAdmin">Severity</th>
         </tr>
 
-        <tr v-for="pothole in filteredPotholes" :key="pothole.id">
+        <tr v-for="pothole in potholes" :key="pothole.id">
           <td>
             <router-link
               v-if="isAdmin"
@@ -92,33 +92,18 @@ export default {
     };
   },
   created() {
-    potholeService.listPotholes().then((response) => {
-      this.potholes = response.data;
-    });
+    this.fetchPotholes();
   },
   computed: {
     isAdmin() {
       return this.$store.getters.userIsAdmin;
     },
-    filteredPotholes() {
-      console.log("Search:", this.search);
-      if (
-        this.search.address ||
-        this.search.zipcode ||
-        this.search.reportedDate
-      ) {
-        return this.potholes.filter((pothole) => {
-          return (
-            pothole.address
-              .toLowerCase()
-              .includes(this.search.address.toLowerCase()) &&
-            pothole.zipcode.includes(this.search.zipcode) &&
-            pothole.reportedDate === this.search.reportedDate
-          );
-        });
-      } else {
-        return this.potholes;
-      }
+  },
+  methods: {
+    fetchPotholes() {
+      potholeService.listPotholes(this.search).then((response) => {
+        this.potholes = response.data;
+      });
     },
   },
 };

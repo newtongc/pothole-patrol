@@ -3,8 +3,8 @@ import http from 'axios';
 
 
 export default {
-  listPotholes() {
-    return http.get('/potholes');
+  listPotholes(search) {
+    return http.get('/potholes', { params: search });
   },
   getPothole(id) {
     return http.get(`/potholes/${id}`);
@@ -18,7 +18,5 @@ export default {
   deletePothole(id) {
     return http.delete(`/potholes/${id}`)
   },
-  filterPotholes() {
-    return http.get('potholes/filter/')
-  }
+
 }

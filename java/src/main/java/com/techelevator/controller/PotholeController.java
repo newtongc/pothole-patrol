@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +31,10 @@ public class PotholeController {
     }
 
     @RequestMapping(path = "/potholes", method = RequestMethod.GET)
-    public List<Pothole> viewPotholes(){
-        return jdbcPotholeDao.getPotholes();
+    public List<Pothole> viewPotholes(@RequestParam(required = false) String zipcode,
+                                      @RequestParam(required = false)String address,
+                                      @RequestParam(required = false)LocalDate reportedDate){
+        return jdbcPotholeDao.filterPotholes(reportedDate, zipcode, address);
     }
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/potholes", method = RequestMethod.POST )
@@ -68,9 +71,5 @@ public class PotholeController {
         } else {
             return pothole;
         }
-    }
-    @RequestMapping(path = "/potholes/filter", method = RequestMethod.GET)
-    public List<Pothole> getPotholeByFilter(@RequestBody(required = true) Filter filter){
-        return jdbcPotholeDao.filterPotholes(filter.getDate(), filter.getZipcode(), filter.getAddress());
     }
 }
