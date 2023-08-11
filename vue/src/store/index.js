@@ -51,6 +51,11 @@ export default new Vuex.Store({
     },
     DELETE_POTHOLE(state) {
       state.activePothole = {}
+    },
+
+    // needs work
+    UPDATE_POTHOLE(state, data) {
+      state.activePothole = data;
     }
   },
   getters: {

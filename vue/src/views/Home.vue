@@ -21,13 +21,14 @@
           placeholder="Filter by Reported Date"
           v-model="search.reportedDate"
         />
-        <button type="submit">Filter</button>
-        <!-- <select class="filter-input" v-if="isAdmin" v-model="filterSeverity">
-          <option value="">Filter by Severity</option>
+
+        <select class="filter-input" v-if="isAdmin" v-model="search.severity">
+          <option value="" disabled selected>Select Severity</option>
           <option value="3">Low</option>
           <option value="2">Medium</option>
           <option value="1">High</option>
-        </select> -->
+        </select>
+        <button type="submit">Filter</button>
       </div>
 
       <table>
@@ -84,6 +85,7 @@ export default {
         address: "",
         zipcode: "",
         reportedDate: "",
+        severity: null,
       },
 
       potholes: [],
