@@ -48,6 +48,12 @@ export default new Vuex.Store({
     },
     SET_ACTIVE_POTHOLE(state, data) {
       state.activePothole = data;
+    },
+    DELETE_POTHOLE(state, id) {
+      state.activePothole(
+        state.activePothole.findIndex(pothole => pothole.id === id),
+        1
+      )
     }
   },
   getters: {

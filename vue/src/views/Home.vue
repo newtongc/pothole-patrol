@@ -21,6 +21,7 @@
           placeholder="Filter by Reported Date"
           v-model="search.reportedDate"
         />
+        <button type="submit">Filter</button>
         <!-- <select class="filter-input" v-if="isAdmin" v-model="filterSeverity">
           <option value="">Filter by Severity</option>
           <option value="3">Low</option>

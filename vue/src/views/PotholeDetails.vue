@@ -5,7 +5,8 @@
     <h1>Severity: {{ pothole.severity }}</h1>
     <h1>Date Reported: {{ pothole.reportedDate }}</h1>
     <h2>Inspection Form</h2>
-    <form @submit.prevent="submitForm">
+    <form>
+      <!-- @submit.prevent="submitForm" -->
       <div class="form-group">
         <label for="inspectionDate">Inspection Date:</label>
         <input type="date" id="inspectionDate" />
@@ -19,6 +20,9 @@
         <input type="date" id="repairDate" />
       </div>
       <button type="submit">Submit</button>
+      <button class="btnDelete" v-on:click="deletePothole(pothole.id)">
+        Delete
+      </button>
     </form>
   </div>
 </template>
@@ -43,6 +47,23 @@ export default {
           this.$router.push({ name: "NotFound" });
         }
       });
+  },
+  methods: {
+    deletePothole(id) {
+      PotholeService.deletePothole(id)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$store.commit("DELETE_POTHOLE", id);
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.$router.push("/404");
+          } else {
+            console.error(error);
+          }
+        });
+    },
   },
 };
 </script>
