@@ -7,26 +7,26 @@
           type="text"
           class="filter-input"
           placeholder="Filter by Street Name"
-          v-model="filterStreet"
+          v-model="search.address"
         />
         <input
           type="text"
           class="filter-input"
           placeholder="Filter by Zip Code"
-          v-model="filterZipCode"
+          v-model="search.zipcode"
         />
         <input
           type="date"
           class="filter-input"
           placeholder="Filter by Reported Date"
-          v-model="filterReportedDate"
+          v-model="search.reportedDate"
         />
-        <select class="filter-input" v-if="isAdmin" v-model="filterSeverity">
+        <!-- <select class="filter-input" v-if="isAdmin" v-model="filterSeverity">
           <option value="">Filter by Severity</option>
           <option value="3">Low</option>
           <option value="2">Medium</option>
           <option value="1">High</option>
-        </select>
+        </select> -->
       </div>
 
       <table>
@@ -45,16 +45,15 @@
           <th v-if="isAdmin">Severity</th>
         </tr>
 
-        <tr v-for="pothole in potholes" v-bind:key="pothole.id">
+        <tr v-for="pothole in filteredPotholes" :key="pothole.id">
           <td>
             <router-link
               v-if="isAdmin"
-              v-bind:to="{ name: 'getPothole', params: { id: pothole.id } }"
+              :to="{ name: 'getPothole', params: { id: pothole.id } }"
             >
-              {{ pothole.address }}</router-link
-            >
-
-            <a v-else> {{ pothole.address }}</a>
+              {{ pothole.address }}
+            </router-link>
+            <a v-else>{{ pothole.address }}</a>
           </td>
           <td>{{ pothole.zipcode }}</td>
           <td>{{ pothole.locationDetails }}</td>
@@ -75,15 +74,17 @@
 
 <script>
 import potholeService from "../services/PotholeService.js";
+
 export default {
   name: "home",
   data() {
     return {
-      filterAddress: "",
-      filterZipCode: "",
-      filterReportedDate: "",
-      filterInTraffic: false,
-      filterSeverity: "",
+      search: {
+        address: "",
+        zipcode: "",
+        reportedDate: "",
+      },
+
       potholes: [],
     };
   },
@@ -97,24 +98,24 @@ export default {
       return this.$store.getters.userIsAdmin;
     },
     filteredPotholes() {
-      return this.potholes.filter((pothole) => {
-        return (
-          pothole.address
-            .toLowerCase()
-            .includes(this.filterAddress.toLowerCase()) &&
-          pothole.zipcode.includes(this.filterZipCode) &&
-          (this.filterReportedDate === "" ||
-            pothole.reportedDate === this.filterReportedDate) &&
-          (!this.filterInTraffic || pothole.inTraffic) &&
-          (this.isAdmin ? pothole.severity === this.filterSeverity : true)
-        );
-      });
-    },
-  },
-  methods: {
-    applyFilters() {
-      // Trigger filtering by updating the filteredPotholes computed property
-      this.filteredPotholes;
+      console.log("Search:", this.search);
+      if (
+        this.search.address ||
+        this.search.zipcode ||
+        this.search.reportedDate
+      ) {
+        return this.potholes.filter((pothole) => {
+          return (
+            pothole.address
+              .toLowerCase()
+              .includes(this.search.address.toLowerCase()) &&
+            pothole.zipcode.includes(this.search.zipcode) &&
+            pothole.reportedDate === this.search.reportedDate
+          );
+        });
+      } else {
+        return this.potholes;
+      }
     },
   },
 };
