@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="text-center">
     <form @submit.prevent="register">
-      <h1>Create Account</h1>
+      <h1 class="createAcc">Create Account</h1>
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
@@ -41,7 +41,7 @@
           placeholder="###-###-####"
         />
       </div>
-      <button type="submit">
+      <button id="registerBtn" type="submit">
         Create Account
         <i class="fa-solid fa-circle-plus"></i>
       </button>
@@ -120,14 +120,27 @@ label {
 body {
   padding: 50;
 }
-h1 {
+.createAcc {
   color: white;
   font-size: 40px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
+  background-color: transparent;
+  max-width: 100%;
 }
 .form-input-group {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+#registerBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#registerBtn:hover {
+  background-color: #0056b3;
 }
 </style>
 

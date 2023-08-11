@@ -14,4 +14,6 @@ public interface PotholeDao {
     Pothole createPothole(RegisterPotholeDto pothole);
     int deletePothole(int id);
 
+    Pothole updatePothole(Pothole pothole);
+
 }

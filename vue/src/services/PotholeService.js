@@ -17,5 +17,8 @@ export default {
   },
   deletePothole(id) {
     return http.delete(`/potholes/${id}`)
+  },
+  filterPotholes() {
+    return http.get('potholes/filter/')
   }
 }

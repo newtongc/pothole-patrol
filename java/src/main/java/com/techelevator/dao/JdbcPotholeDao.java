@@ -4,6 +4,7 @@ import com.techelevator.exception.DaoException;
 import com.techelevator.model.Pothole;
 import com.techelevator.model.RegisterPotholeDto;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -94,6 +95,38 @@ public class JdbcPotholeDao implements PotholeDao {
             throw new RuntimeException(e);
         }
         return numberOfRows;
+    }
+
+    @Override
+    public Pothole updatePothole(Pothole pothole) {
+        Pothole updated = null;
+        //how are we going to get status? can only update to 2 or 3
+        String sql = "UPDATE potholes " +
+                "SET severity = ?, " +
+                "    inspection_date = ?, " +
+                "    repaired_date = ?, " +
+                "    inspected = ?, " +
+                "    repaired = ? " +
+                "WHERE pothole_id = ?";
+        try {
+            int numberOfRows = jdbcTemplate.update(sql, pothole.getId());
+
+            if(numberOfRows ==0 ){
+                throw new DaoException("0 rows affected. Expected at least one");
+            } else {
+                //may need to use principal to make a user and get the user id
+                updated = getPotholeById(pothole.getId());
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("SQL syntax error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return updated;
     }
 
     private Pothole mapRowToPothole(SqlRowSet rs) {

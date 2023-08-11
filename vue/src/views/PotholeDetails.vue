@@ -1,28 +1,52 @@
 <template>
   <div class="inspection-form pothole-details">
-    <h1>Nearest Address: {{ pothole.address }}</h1>
-    <h1>Description: {{ pothole.description }}</h1>
-    <h1>Severity: {{ pothole.severity }}</h1>
-    <h1>Date Reported: {{ pothole.reportedDate }}</h1>
-    <h2>Inspection Form</h2>
-    <form>
-      <!-- @submit.prevent="submitForm" -->
-      <div class="form-group">
-        <label for="inspectionDate">Inspection Date:</label>
-        <input type="date" id="inspectionDate" />
-      </div>
-      <div>
+    <div class="info">
+      <h1 class="details">Nearest Address:</h1>
+      <h1 class="potholeInfo">{{ pothole.address }}</h1>
+      <h1 class="details">Description:</h1>
+      <h1 class="potholeInfo">{{ pothole.description }}</h1>
+      <h1 class="details">Severity:</h1>
+      <h1 class="potholeInfo">{{ pothole.severity }}</h1>
+      <h1 class="details">Date Reported:</h1>
+      <h1 class="potholeInfo">{{ pothole.reportedDate }}</h1>
+    </div>
+    <!-- <h2>Inspection Form</h2> -->
+    <form @submit.prevent="submitForm">
+      <!-- -->
+
+      <div class="checkbox-group">
         <label for="inspected">Inspected</label>
         <input type="checkbox" id="inspected" />
       </div>
       <div>
-        <label for="repairDate">Repair Date:</label>
-        <input type="date" id="repairDate" />
+        <label for="severity">Severity:</label>
+        <select id="severity" class="dropdown">
+          <option value="1">1 - High</option>
+          <option value="2">2 - Medium</option>
+          <option value="3">3 - Low</option>
+        </select>
       </div>
-      <button type="submit">Submit</button>
-      <button class="btnDelete" v-on:click="deletePothole(pothole.id)">
-        Delete
-      </button>
+      <div class="form-group">
+        <div>
+          <label for="inspectionDate">Inspection Date:</label>
+          <input type="date" id="inspectionDate" />
+        </div>
+
+        <div>
+          <label for="repairDate">Repair Date:</label>
+
+          <input type="date" id="repairDate" />
+        </div>
+      </div>
+      <div class="button-group">
+        <button class="submitBtn" type="submit">Submit</button>
+        <button
+          class="btnDelete"
+          v-on:click.prevent="deletePothole(pothole.id)"
+        >
+          Delete
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -49,11 +73,14 @@ export default {
       });
   },
   methods: {
+    submitForm() {
+      alert("Submitting");
+    },
     deletePothole(id) {
       PotholeService.deletePothole(id)
         .then((response) => {
           if (response.status === 200) {
-            this.$store.commit("DELETE_POTHOLE", id);
+            this.$router.push({ name: "home" });
           }
         })
         .catch((error) => {
@@ -68,88 +95,135 @@ export default {
 };
 </script>
 <style scoped>
-h2 {
-  top: -230px;
-}
-h1 {
-  font-size: 15px;
-}
 .inspection-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 70vh;
-  background-color: rgba(128, 128, 128, 0.616);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  margin: auto;
-}
-.form-container {
-  width: 100%;
-  max-width: 400px;
+  width: 50vw;
+  max-width: 70vw;
+  height: 50vh;
+  max-height: 60vh;
+  margin: 30px auto;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
+  background-color: rgba(128, 128, 128, 0.822);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
-.form-group {
-  margin-bottom: 1px;
+.details,
+.potholeInfo {
+  background-color: transparent;
+  font-size: 20px;
+  max-width: 100%;
+  text-align: left;
+}
+.info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.header {
+  margin-bottom: 20px;
 }
 label {
-  display: flex;
-  font-weight: bold;
-  margin: auto;
-  text-align: center;
-  justify-content: center;
+  font-size: 20px;
+  color: white;
 }
-input[type="text"],
-textarea,
-input[type="date"] {
+#severity {
+  margin-left: 10px;
+  margin-bottom: 5px;
+  width: 30px;
+}
+
+/* .detail {
+  font-size: 18px;
+  margin-bottom: 6px;
+} */
+
+.form-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  margin-top: 20px;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+#checkbox {
+  margin-right: 20px;
+}
+
+.checkbox-label {
+  font-weight: bold;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 20px;
+}
+
+/* .input-container {
+  flex: 1;
+  margin-right: 12px;
+}
+
+.input {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 10px;
-}
-input[type="checkbox"] {
+} */
+
+.button-group {
   display: flex;
-  margin: auto;
-  margin-bottom: 10px;
+  margin-top: 110px;
+  justify-content: space-between;
+  align-items: bottom;
 }
-button[type="submit"] {
-  background-color: #007bff;
-  color: #fff;
+
+/* .btn {
+  padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+} */
+
+.submitBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
-button[type="submit"]:hover {
+.submitBtn:hover {
   background-color: #0056b3;
 }
-button {
-  display: flex;
-  margin: auto;
+
+.btnDelete {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
 }
-input #inspected {
-  display: flex;
-  justify-content: center;
+.btnDelete:hover {
+  background-color: #ac2835;
+  color: #fff;
 }
+
+/* .btn:hover {
+  background-color: #333;
+  color: #fff;
+} */
 </style>
-
-
-
-
-
-
-
-
-
