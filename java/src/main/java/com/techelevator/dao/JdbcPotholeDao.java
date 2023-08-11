@@ -2,7 +2,9 @@ package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Pothole;
+import com.techelevator.model.PotholeReivew;
 import com.techelevator.model.RegisterPotholeDto;
+import org.apache.tomcat.jni.Local;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -98,18 +100,19 @@ public class JdbcPotholeDao implements PotholeDao {
     }
 
     @Override
-    public Pothole updatePothole(Pothole pothole) {
+    public Pothole updatePothole(PotholeReivew pothole) {
         Pothole updated = null;
         //how are we going to get status? can only update to 2 or 3
         String sql = "UPDATE potholes " +
                 "SET severity = ?, " +
-                "    inspection_date = ?, " +
-                "    repaired_date = ?, " +
+                "    inspected_date = ?, " +
+                "    repair_date = ?, " +
                 "    inspected = ?, " +
                 "    repaired = ? " +
                 "WHERE pothole_id = ?";
         try {
-            int numberOfRows = jdbcTemplate.update(sql, pothole.getId());
+            int numberOfRows = jdbcTemplate.update(sql, pothole.getSeverity(), pothole.getInspectedDate(),
+                    pothole.getRepairDate(), pothole.isInspected(), pothole.isRepaired(), pothole.getId());
 
             if(numberOfRows ==0 ){
                 throw new DaoException("0 rows affected. Expected at least one");

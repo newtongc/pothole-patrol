@@ -15,12 +15,12 @@
           placeholder="Filter by Zip Code"
           v-model="search.zipcode"
         />
-        <input
+        <!-- <input
           type="date"
           class="filter-input"
           placeholder="Filter by Reported Date"
           v-model="search.reportedDate"
-        />
+        /> -->
 
         <select class="filter-input" v-if="isAdmin" v-model="search.severity">
           <option value="" disabled selected>Select Severity</option>
@@ -84,7 +84,7 @@ export default {
       search: {
         address: "",
         zipcode: "",
-        reportedDate: "",
+        // reportedDate: "",
         severity: null,
       },
 
