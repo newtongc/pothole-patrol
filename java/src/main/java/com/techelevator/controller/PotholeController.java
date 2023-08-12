@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.JdbcPotholeDao;
+import com.techelevator.dao.JdbcUserDao;
 import com.techelevator.dao.PotholeDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
@@ -23,11 +24,13 @@ public class PotholeController {
     private PotholeDao potholeDao;
     private JdbcPotholeDao jdbcPotholeDao;
     private UserDao userDao;
+    private JdbcUserDao jdbcUserDao;
 
-    public PotholeController(PotholeDao potholeDao, JdbcPotholeDao jdbcPotholeDao, UserDao userDao) {
+    public PotholeController(PotholeDao potholeDao, JdbcPotholeDao jdbcPotholeDao, UserDao userDao, JdbcUserDao jdbcUserDao) {
         this.potholeDao = potholeDao;
         this.jdbcPotholeDao = jdbcPotholeDao;
         this.userDao = userDao;
+        this.jdbcUserDao = jdbcUserDao;
     }
 
     @RequestMapping(path = "/potholes", method = RequestMethod.GET)
@@ -54,14 +57,18 @@ public class PotholeController {
         return pothole;
     }
     @RequestMapping(path = "/potholes/{id}", method = RequestMethod.GET)
-    public Pothole getPotholeById(@PathVariable int id){
+    public PotholeWithPhoneNumber getPotholeWithUserById(@PathVariable int id){
         Pothole pothole = jdbcPotholeDao.getPotholeById(id);
         if (pothole == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No pothole found");
-        } else {
-            return pothole;
         }
+        User user = jdbcUserDao.getUserById(pothole.getId());
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        return new PotholeWithPhoneNumber(pothole, user.getPhoneNumber());
     }
+
 
     @RequestMapping(path = "/potholes/{id}", method = RequestMethod.DELETE)
     public int deletePotholeById(@PathVariable int id) {
