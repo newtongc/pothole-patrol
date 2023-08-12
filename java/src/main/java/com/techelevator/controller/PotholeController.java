@@ -77,7 +77,7 @@ public class PotholeController {
             return pothole;
         }
     }
-    @RequestMapping(path = "potholes/{id}/review", method = RequestMethod.PUT)
+    @RequestMapping(path = "potholes/{id}", method = RequestMethod.PUT)
     public Pothole updatePothole(@PathVariable int id, @RequestBody PotholeReivew pothole) {
         Pothole updated = null;
         try {
