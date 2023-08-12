@@ -1,14 +1,20 @@
 <template>
   <div id="app">
     <div id="nav">
-      <button id="homebtn" @click="$router.push({ name: 'home' })">Home</button
-      >&nbsp;|&nbsp;
-      <button id="homebtn" @click="$router.push({ name: 'login' })">
-        Login</button
-      >&nbsp;|&nbsp;
+      <button id="homebtn" @click="$router.push({ name: 'home' })">Home</button>
+      <!-- &nbsp;|&nbsp; -->
+      <button
+        id="homebtn"
+        v-if="$store.state.token == ''"
+        @click="$router.push({ name: 'login' })"
+      >
+        Login
+      </button>
+      <!-- &nbsp;|&nbsp; -->
       <button id="homebtn" @click="$router.push({ name: 'addPothole' })">
-        Report A Pothole</button
-      >&nbsp;|&nbsp;
+        Report A Pothole
+      </button>
+      <!-- &nbsp;|&nbsp; -->
       <button
         id="homebtn"
         v-if="$store.state.token != ''"

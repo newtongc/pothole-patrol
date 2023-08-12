@@ -9,11 +9,12 @@
       <h1 class="potholeInfo">{{ pothole.severity }}</h1>
       <h1 class="details">Date Reported:</h1>
       <h1 class="potholeInfo">{{ pothole.reportedDate }}</h1>
+      <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
+      <h1 v-if="pothole.canContact" class="potholeInfo">
+        {{ user.phoneNumber }}
+      </h1>
     </div>
-    <!-- <h2>Inspection Form</h2> -->
     <form @submit.prevent="submitForm">
-      <!-- -->
-
       <div class="checkbox-group">
         <label for="inspected">Inspected</label>
         <input type="checkbox" id="inspected" />
