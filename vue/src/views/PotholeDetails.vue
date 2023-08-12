@@ -9,19 +9,32 @@
       <h1 class="potholeInfo">{{ pothole.severity }}</h1>
       <h1 class="details">Date Reported:</h1>
       <h1 class="potholeInfo">{{ pothole.reportedDate }}</h1>
+
+      <h1 class="details" v-if="pothole.inspectedDate != null">
+        Inspected Date:
+      </h1>
+      <h1 class="potholeInfo" v-if="pothole.inspectedDate != null">
+        {{ pothole.inspectedDate }}
+      </h1>
+
+      <h1 class="details" v-if="pothole.repairDate != null">Repair Date:</h1>
+      <h1 class="potholeInfo" v-if="pothole.repairDate != null">
+        {{ pothole.repairDate }}
+      </h1>
+
       <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
       <h1 v-if="pothole.canContact" class="potholeInfo">
-        {{ user.phoneNumber }}
+        {{ phoneNumber }}
       </h1>
     </div>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="updatePothole">
       <div class="checkbox-group">
         <label for="inspected">Inspected</label>
-        <input type="checkbox" id="inspected" />
+        <input type="checkbox" id="inspected" v-model="pothole.inspected" />
       </div>
-      <div>
+      <div v-if="pothole.severity == 0">
         <label for="severity">Severity:</label>
-        <select id="severity" class="dropdown">
+        <select id="severity" class="dropdown" v-model="pothole.severity">
           <option value="1">1 - High</option>
           <option value="2">2 - Medium</option>
           <option value="3">3 - Low</option>
@@ -30,17 +43,21 @@
       <div class="form-group">
         <div>
           <label for="inspectionDate">Inspection Date:</label>
-          <input type="date" id="inspectionDate" />
+          <input
+            type="date"
+            id="inspectionDate"
+            v-model="pothole.inspectionDate"
+          />
         </div>
 
         <div>
           <label for="repairDate">Repair Date:</label>
 
-          <input type="date" id="repairDate" />
+          <input type="date" id="repairDate" v-model="pothole.repairDate" />
         </div>
       </div>
       <div class="button-group">
-        <button class="submitBtn" type="submit">Submit</button>
+        <button class="submitBtn" @click="updatePothole()">Submit</button>
         <button
           class="btnDelete"
           v-on:click.prevent="deletePothole(pothole.id)"
@@ -58,6 +75,7 @@ export default {
   data() {
     return {
       pothole: {},
+      phoneNumber: null,
     };
   },
   created() {
@@ -66,6 +84,7 @@ export default {
       .then((response) => {
         this.$store.commit("SET_ACTIVE_POTHOLE", response.data);
         this.pothole = response.data;
+        this.phoneNumber = response.data.phoneNumber;
       })
       .catch((error) => {
         if (error.response.status == 404) {
@@ -74,10 +93,19 @@ export default {
       });
   },
   methods: {
-    submitForm() {
+    updatePothole() {
       alert("Submitting");
+      PotholeService.updatePothole(this.potholeId, this.pothole).then(
+        (response) => {
+          if (response.status == 200) {
+            this.$router.push({ name: "UpdatePothole" });
+            // this.$router.push({ name: "home" });
+          }
+        }
+      );
     },
     deletePothole(id) {
+      alert("Deleting");
       PotholeService.deletePothole(id)
         .then((response) => {
           if (response.status === 200) {

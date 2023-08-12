@@ -71,7 +71,15 @@ const router = new Router({
       meta: {
         requiresAuth: true,
       }
-    }
+    },
+    {
+      path: '/potholes/:id',
+      name: 'UpdatePothole',
+      component: PotholeDetails,
+      meta: {
+        requiresAuth: true,
+      }
+    },
   ]
 })
 
