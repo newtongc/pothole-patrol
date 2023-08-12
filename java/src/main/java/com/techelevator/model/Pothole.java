@@ -3,6 +3,7 @@ package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Pothole {
@@ -11,9 +12,9 @@ public class Pothole {
 
     private int severity;
     private String address;
-    private Date reportedDate;
-    private Date inspectedDate;
-    private Date repairDate;
+    private LocalDate reportedDate;
+    private LocalDate inspectedDate;
+    private LocalDate repairDate;
     private boolean canContact;
     private boolean inspected;
     private boolean repaired;
@@ -23,8 +24,8 @@ public class Pothole {
     private String locationDetails;
     private int reporterId;
 
-    public Pothole(int id, String description, int severity, String address, Date reportedDate, Date inspectedDate,
-                   Date repairDate, boolean canContact, boolean inspected, boolean repaired, String zipcode,
+    public Pothole(int id, String description, int severity, String address, LocalDate reportedDate, LocalDate inspectedDate,
+                   LocalDate repairDate, boolean canContact, boolean inspected, boolean repaired, String zipcode,
                    boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId) {
         this.id = id;
         this.description = description;
@@ -78,19 +79,19 @@ public class Pothole {
         this.address = address;
     }
 
-    public Date getReportedDate() {
+    public LocalDate getReportedDate() {
         return reportedDate;
     }
 
-    public void setReportedDate(Date reportedDate) {
+    public void setReportedDate(LocalDate reportedDate) {
         this.reportedDate = reportedDate;
     }
 
-    public Date getInspectedDate() {
+    public LocalDate getInspectedDate() {
         return inspectedDate;
     }
 
-    public Date getRepairDate() {
+    public LocalDate getRepairDate() {
         return repairDate;
     }
 
@@ -118,11 +119,11 @@ public class Pothole {
         return potentialDamage;
     }
 
-    public void setInspectedDate(Date inspectedDate) {
+    public void setInspectedDate(LocalDate inspectedDate) {
         this.inspectedDate = inspectedDate;
     }
 
-    public void setRepairDate(Date repairDate) {
+    public void setRepairDate(LocalDate repairDate) {
         this.repairDate = repairDate;
     }
 

@@ -1,12 +1,13 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class PotholeReivew {
     private boolean inspected;
     private boolean repaired;
-    private Date inspectedDate;
-    private Date repairDate;
+    private LocalDate inspectedDate;
+    private LocalDate repairDate;
     private int severity;
     private int id;
 
@@ -36,19 +37,19 @@ public class PotholeReivew {
         this.repaired = repaired;
     }
 
-    public Date getInspectedDate() {
+    public LocalDate getInspectedDate() {
         return inspectedDate;
     }
 
-    public void setInspectedDate(Date inspectedDate) {
+    public void setInspectedDate(LocalDate inspectedDate) {
         this.inspectedDate = inspectedDate;
     }
 
-    public Date getRepairDate() {
+    public LocalDate getRepairDate() {
         return repairDate;
     }
 
-    public void setRepairDate(Date repairDate) {
+    public void setRepairDate(LocalDate repairDate) {
         this.repairDate = repairDate;
     }
 

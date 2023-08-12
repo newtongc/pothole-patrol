@@ -12,8 +12,8 @@ export default {
   createPothole(pothole) {
     return http.post(`/potholes`, pothole)
   },
-  updatePothole(id, pothole) {
-    return http.put(`/potholes/${id}`, pothole)
+  updatePothole(pothole) {
+    return http.put(`/potholes/${pothole.id}`, pothole)
   },
   deletePothole(id) {
     return http.delete(`/potholes/${id}`)

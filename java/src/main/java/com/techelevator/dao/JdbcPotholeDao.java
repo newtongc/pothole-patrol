@@ -138,9 +138,9 @@ public class JdbcPotholeDao implements PotholeDao {
         pothole.setId(rs.getInt("pothole_id"));
         pothole.setAddress(rs.getString("address"));
         pothole.setSeverity(rs.getInt("severity"));
-        pothole.setReportedDate(rs.getDate("reported_date"));
-        pothole.setInspectedDate(rs.getDate("inspected_date"));
-        pothole.setRepairDate(rs.getDate("repair_date"));
+        pothole.setReportedDate(rs.getDate("reported_date").toLocalDate());
+        pothole.setInspectedDate(rs.getDate("inspected_date").toLocalDate());
+        pothole.setRepairDate(rs.getDate("repair_date").toLocalDate());
         pothole.setCanContact(rs.getBoolean("can_contact"));
         pothole.setInspected(rs.getBoolean("inspected"));
         pothole.setRepaired(rs.getBoolean("repaired"));

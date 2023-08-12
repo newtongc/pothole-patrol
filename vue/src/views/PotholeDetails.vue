@@ -22,17 +22,17 @@
         {{ pothole.repairDate }}
       </h1>
 
-      <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
+      <!-- <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
       <h1 v-if="pothole.canContact" class="potholeInfo">
         {{ phoneNumber }}
-      </h1>
+      </h1> -->
     </div>
-    <form @submit.prevent="updatePothole">
+    <form>
       <div class="checkbox-group">
         <label for="inspected">Inspected</label>
         <input type="checkbox" id="inspected" v-model="pothole.inspected" />
       </div>
-      <div v-if="pothole.severity == 0">
+      <div>
         <label for="severity">Severity:</label>
         <select id="severity" class="dropdown" v-model="pothole.severity">
           <option value="1">1 - High</option>
@@ -46,7 +46,7 @@
           <input
             type="date"
             id="inspectionDate"
-            v-model="pothole.inspectionDate"
+            v-model="pothole.inspectedDate"
           />
         </div>
 
@@ -57,11 +57,10 @@
         </div>
       </div>
       <div class="button-group">
-        <button class="submitBtn" @click="updatePothole()">Submit</button>
-        <button
-          class="btnDelete"
-          v-on:click.prevent="deletePothole(pothole.id)"
-        >
+        <button class="submitBtn" @click.prevent="updatePothole()">
+          Submit
+        </button>
+        <button class="btnDelete" v-on:click.prevent="deletePothole()">
           Delete
         </button>
       </div>
@@ -75,7 +74,7 @@ export default {
   data() {
     return {
       pothole: {},
-      phoneNumber: null,
+      // phoneNumber: null,
     };
   },
   created() {
@@ -84,7 +83,7 @@ export default {
       .then((response) => {
         this.$store.commit("SET_ACTIVE_POTHOLE", response.data);
         this.pothole = response.data;
-        this.phoneNumber = response.data.phoneNumber;
+        // this.phoneNumber = response.data.phoneNumber;
       })
       .catch((error) => {
         if (error.response.status == 404) {
@@ -95,30 +94,22 @@ export default {
   methods: {
     updatePothole() {
       alert("Submitting");
-      PotholeService.updatePothole(this.potholeId, this.pothole).then(
-        (response) => {
+      PotholeService.updatePothole(this.pothole)
+        .then((response) => {
           if (response.status == 200) {
             this.$router.push({ name: "UpdatePothole" });
-            // this.$router.push({ name: "home" });
-          }
-        }
-      );
-    },
-    deletePothole(id) {
-      alert("Deleting");
-      PotholeService.deletePothole(id)
-        .then((response) => {
-          if (response.status === 200) {
             this.$router.push({ name: "home" });
           }
         })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            this.$router.push("/404");
-          } else {
-            console.error(error);
-          }
-        });
+        .catch((error) => console.error(error));
+    },
+    deletePothole() {
+      alert("Deleting");
+      PotholeService.deletePothole(this.pothole.id).then((response) => {
+        if (response.status === 200) {
+          this.$router.push({ name: "home" });
+        }
+      });
     },
   },
 };

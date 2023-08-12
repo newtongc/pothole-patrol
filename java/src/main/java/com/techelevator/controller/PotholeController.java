@@ -57,16 +57,12 @@ public class PotholeController {
         return pothole;
     }
     @RequestMapping(path = "/potholes/{id}", method = RequestMethod.GET)
-    public PotholeWithPhoneNumber getPotholeWithUserById(@PathVariable int id){
+    public Pothole getPotholeWithUserById(@PathVariable int id){
         Pothole pothole = jdbcPotholeDao.getPotholeById(id);
         if (pothole == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No pothole found");
         }
-        User user = jdbcUserDao.getUserById(pothole.getId());
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        return new PotholeWithPhoneNumber(pothole, user.getPhoneNumber());
+        return pothole;
     }
 
 
@@ -79,7 +75,7 @@ public class PotholeController {
             return pothole;
         }
     }
-    @RequestMapping(path = "potholes/{id}/review", method = RequestMethod.PUT)
+    @RequestMapping(path = "potholes/{id}", method = RequestMethod.PUT)
     public Pothole updatePothole(@PathVariable int id, @RequestBody PotholeReivew pothole) {
         Pothole updated = null;
         try {
