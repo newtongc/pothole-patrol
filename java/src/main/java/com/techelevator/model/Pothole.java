@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Date;
 
@@ -22,10 +23,11 @@ public class Pothole {
     private boolean potentialDamage;
     private String locationDetails;
     private int reporterId;
+    private Reporter reporter;
 
     public Pothole(int id, String description, int severity, String address, Date reportedDate, Date inspectedDate,
                    Date repairDate, boolean canContact, boolean inspected, boolean repaired, String zipcode,
-                   boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId) {
+                   boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId, Reporter reporter) {
         this.id = id;
         this.description = description;
         this.severity = severity;
@@ -41,6 +43,7 @@ public class Pothole {
         this.potentialDamage = potentialDamage;
         this.locationDetails = locationDetails;
         this.reporterId = reporterId;
+        this.reporter = reporter;
     }
 
     public Pothole() {
@@ -164,5 +167,13 @@ public class Pothole {
 
     public void setReporterId(int reporterId) {
         this.reporterId = reporterId;
+    }
+
+    public Reporter getReporter() {
+        return reporter;
+    }
+
+    public void setReporter(Reporter reporter) {
+        this.reporter = reporter;
     }
 }

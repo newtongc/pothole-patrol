@@ -4,6 +4,7 @@ import com.techelevator.exception.DaoException;
 import com.techelevator.model.Pothole;
 import com.techelevator.model.PotholeReivew;
 import com.techelevator.model.RegisterPotholeDto;
+import com.techelevator.model.Reporter;
 import org.apache.tomcat.jni.Local;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;

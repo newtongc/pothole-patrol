@@ -7,15 +7,13 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.parameters.P;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -56,17 +54,17 @@ public class PotholeController {
         }
         return pothole;
     }
-    @RequestMapping(path = "/potholes/{id}", method = RequestMethod.GET)
-    public PotholeWithPhoneNumber getPotholeWithUserById(@PathVariable int id){
+     @RequestMapping(path = "/potholes/{id}", method = RequestMethod.GET)
+     @PreAuthorize("hasRole('ADMIN')")
+    public Pothole getPotholeWithUserById(@PathVariable int id){
         Pothole pothole = jdbcPotholeDao.getPotholeById(id);
+        Reporter reporter = new Reporter(jdbcUserDao.getUserById(id).getUsername(), jdbcUserDao.getUserById(id).getPhoneNumber());
+        pothole.setReporter(reporter);
+
         if (pothole == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No pothole found");
         }
-        User user = jdbcUserDao.getUserById(pothole.getId());
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        return new PotholeWithPhoneNumber(pothole, user.getPhoneNumber());
+        return pothole;
     }
 
 
