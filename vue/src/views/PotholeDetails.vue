@@ -5,6 +5,8 @@
       <h1 class="potholeInfo">{{ pothole.address }}</h1>
       <h1 class="details">Description:</h1>
       <h1 class="potholeInfo">{{ pothole.description }}</h1>
+      <h1 class="details">Other Location Information</h1>
+      <h1 class="potholeInfo">{{ pothole.locationDetails }}</h1>
       <h1 class="details">Severity:</h1>
       <h1 class="potholeInfo">{{ pothole.severity }}</h1>
       <h1 class="details">Date Reported:</h1>
@@ -29,8 +31,14 @@
     </div>
     <form>
       <div class="checkbox-group">
-        <label for="inspected">Inspected</label>
-        <input type="checkbox" id="inspected" v-model="pothole.inspected" />
+        <div>
+          <label for="inspected">Inspected</label>
+          <input type="checkbox" id="inspected" v-model="pothole.inspected" />
+        </div>
+        <div>
+          <label for="repaired">Repaired</label>
+          <input type="checkbox" id="repaired" v-model="pothole.repaired" />
+        </div>
       </div>
       <div>
         <label for="severity">Severity:</label>
@@ -119,7 +127,7 @@ export default {
   width: 50vw;
   max-width: 70vw;
   height: 50vh;
-  max-height: 60vh;
+  max-height: 70vh;
   margin: 30px auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -203,6 +211,9 @@ label {
   margin-top: 110px;
   justify-content: space-between;
   align-items: bottom;
+  position: absolute;
+  right: 520px;
+  top: 600px;
 }
 
 /* .btn {
