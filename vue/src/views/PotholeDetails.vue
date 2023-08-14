@@ -101,15 +101,37 @@ export default {
   },
   methods: {
     updatePothole() {
-      alert("Submitting");
-      PotholeService.updatePothole(this.pothole)
-        .then((response) => {
-          if (response.status == 200) {
-            this.$router.push({ name: "UpdatePothole" });
-            this.$router.push({ name: "home" });
-          }
-        })
-        .catch((error) => console.error(error));
+      if (this.isUpdateValid()) {
+        alert("Submitting");
+        PotholeService.updatePothole(this.pothole)
+          .then((response) => {
+            if (response.status == 200) {
+              this.$router.push({ name: "home" });
+            }
+          })
+          .catch((error) => console.error(error));
+      } else {
+        alert(
+          "Invalid update. Please make sure that there is a date for inspected and reported if they are checked. Also make sure that repair date is after inspected date."
+        );
+      }
+    },
+    isUpdateValid() {
+      if (this.pothole.inspected && !this.pothole.inspectedDate) {
+        return false;
+      }
+      if (this.pothole.repaired && !this.pothole.repairDate) {
+        return false;
+      }
+      if (this.pothole.inspectedDate && this.pothole.repairDate) {
+        const inspectedDate = new Date(this.pothole.inspectedDate);
+        const repairDate = new Date(this.pothole.repairDate);
+        if (repairDate <= inspectedDate) {
+          return false;
+        }
+      }
+      // Add other constraint checks here if needed
+      return true;
     },
     deletePothole() {
       alert("Deleting");
