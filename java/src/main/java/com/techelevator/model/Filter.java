@@ -7,6 +7,15 @@ public class Filter {
     private LocalDate date;
     private String zipcode;
     private String address;
+    private int severity;
+
+    public int getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(int severity) {
+        this.severity = severity;
+    }
 
     public LocalDate getDate() {
         return date;

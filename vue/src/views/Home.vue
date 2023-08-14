@@ -15,12 +15,6 @@
           placeholder="Filter by Zip Code"
           v-model="search.zipcode"
         />
-        <!-- <input
-          type="date"
-          class="filter-input"
-          placeholder="Filter by Reported Date"
-          v-model="search.reportedDate"
-        /> -->
 
         <select class="filter-input" v-if="isAdmin" v-model="search.severity">
           <option value="" disabled selected>Select Severity</option>
@@ -84,7 +78,6 @@ export default {
       search: {
         address: "",
         zipcode: "",
-        // reportedDate: "",
         severity: null,
       },
 
@@ -163,12 +156,11 @@ th {
 td {
   vertical-align: top;
   text-align: left;
-  /* background-color: rgba(128, 128, 128, 0.7); */
   color: white;
 }
 th,
 td:last-child {
-  width: 20%; /* Adjust the width of the last column as needed */
+  width: 20%;
 }
 .home {
   border-radius: 10px;

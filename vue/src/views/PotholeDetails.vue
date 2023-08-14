@@ -126,7 +126,7 @@ export default {
 .inspection-form {
   width: 50vw;
   max-width: 70vw;
-  height: 50vh;
+  height: 65vh;
   max-height: 70vh;
   margin: 30px auto;
   padding: 20px;
@@ -175,8 +175,9 @@ label {
 }
 
 .checkbox-group {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
   margin-bottom: 12px;
 }
 
@@ -213,7 +214,7 @@ label {
   align-items: bottom;
   position: absolute;
   right: 520px;
-  top: 600px;
+  top: 740px;
 }
 
 /* .btn {
@@ -257,4 +258,7 @@ label {
   background-color: #333;
   color: #fff;
 } */
+#severity {
+  margin-bottom: 10px;
+}
 </style>

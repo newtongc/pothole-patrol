@@ -155,15 +155,15 @@ public class JdbcPotholeDao implements PotholeDao {
         pothole.setReporterId(rs.getInt("reporter_id"));
         return pothole;
     }
-    public List<Pothole> filterPotholes(LocalDate date, String zipcode, String address) {
+    public List<Pothole> filterPotholes(int severity, String zipcode, String address) {
         List<Pothole> potholes = new ArrayList<>();
         List<Object> args = new ArrayList<>();
         List<Integer> types = new ArrayList<>();
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM potholes WHERE 1=1");
-        if (date != null) {
-            queryBuilder.append(" AND reported_date = ?");
-            args.add(date);
-            types.add(Types.DATE);
+        if (severity != 0) {
+            queryBuilder.append(" AND severity = ?");
+            args.add(severity);
+            types.add(Types.INTEGER);
         }
         if (zipcode != null && !zipcode.isEmpty()) {
             queryBuilder.append(" AND zipcode = ?");
@@ -178,7 +178,7 @@ public class JdbcPotholeDao implements PotholeDao {
         String sql = queryBuilder.toString();
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, args.toArray(),
-                    types.stream().mapToInt(i -> i).toArray());
+                    types.stream().mapToInt(Integer::intValue).toArray());
             while (results.next()) {
                 Pothole pothole = mapRowToPothole(results);
                 potholes.add(pothole);

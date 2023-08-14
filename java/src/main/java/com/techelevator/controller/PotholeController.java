@@ -34,8 +34,8 @@ public class PotholeController {
     @RequestMapping(path = "/potholes", method = RequestMethod.GET)
     public List<Pothole> viewPotholes(@RequestParam(required = false) String zipcode,
                                       @RequestParam(required = false)String address,
-                                      @RequestParam(required = false)LocalDate reportedDate){
-        return jdbcPotholeDao.filterPotholes(reportedDate, zipcode, address);
+                                      @RequestParam(defaultValue = "0")int severity){
+        return jdbcPotholeDao.filterPotholes(severity, zipcode, address);
     }
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/potholes", method = RequestMethod.POST )
@@ -58,7 +58,7 @@ public class PotholeController {
      @PreAuthorize("hasRole('ADMIN')")
     public Pothole getPotholeWithUserById(@PathVariable int id){
         Pothole pothole = jdbcPotholeDao.getPotholeById(id);
-        Reporter reporter = new Reporter(jdbcUserDao.getUserById(id).getUsername(), jdbcUserDao.getUserById(id).getPhoneNumber());
+        Reporter reporter = new Reporter(jdbcUserDao.getUserById(pothole.getReporterId()).getUsername(), jdbcUserDao.getUserById(pothole.getReporterId()).getPhoneNumber());
         pothole.setReporter(reporter);
 
         if (pothole == null){
