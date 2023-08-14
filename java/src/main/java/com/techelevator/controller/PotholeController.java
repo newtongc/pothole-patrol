@@ -5,13 +5,16 @@ import com.techelevator.dao.JdbcUserDao;
 import com.techelevator.dao.PotholeDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
+import com.techelevator.exception.PotholeNotFoundException;
 import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
@@ -77,15 +80,50 @@ public class PotholeController {
             return pothole;
         }
     }
+//    @RequestMapping(path = "potholes/{id}", method = RequestMethod.PUT)
+//    public Pothole updatePothole(@PathVariable int id, @RequestBody PotholeReivew pothole) {
+//        Pothole updated = null;
+//        try {
+//            pothole.setId(id);
+//            updated = potholeDao.updatePothole(pothole);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return updated;
+//    }
     @RequestMapping(path = "potholes/{id}", method = RequestMethod.PUT)
-    public Pothole updatePothole(@PathVariable int id, @RequestBody PotholeReivew pothole) {
+    public Pothole updatePothole(@PathVariable int id, @RequestBody PotholeReivew potholeReview) {
         Pothole updated = null;
         try {
-            pothole.setId(id);
-            updated = potholeDao.updatePothole(pothole);
+            potholeReview.setId(id);
+            updated = potholeDao.getPotholeById(id);
+
+            if (updated == null) {
+                throw new PotholeNotFoundException("Pothole not found");
+            }
+
+            if (potholeReview.isInspected() && potholeReview.getInspectedDate() == null) {
+                throw new ValidationException("Inspected date is required");
+            }
+
+            if (potholeReview.isRepaired() && potholeReview.getRepairDate() == null) {
+                throw new ValidationException("Repair date is required");
+            }
+
+            if (potholeReview.getInspectedDate() != null && potholeReview.getRepairDate() != null) {
+                if (potholeReview.getRepairDate().compareTo(potholeReview.getInspectedDate()) <= 0) {
+                    throw new ValidationException("Repair date must be after inspected date");
+                }
+            }
+
+            Pothole updatedPothole = potholeDao.updatePothole(potholeReview);
+            return updatedPothole;
+        } catch (PotholeNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pothole not found", e);
+        } catch (ValidationException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", e);
         }
-        return updated;
     }
 }
