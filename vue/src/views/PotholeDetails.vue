@@ -1,27 +1,36 @@
 <template>
   <div class="inspection-form pothole-details">
+    <h2>{{ pothole.address }}</h2>
     <div class="info">
-      <h1 class="details">Nearest Address:</h1>
-      <h1 class="potholeInfo">{{ pothole.address }}</h1>
       <h1 class="details">Description:</h1>
       <h1 class="potholeInfo">{{ pothole.description }}</h1>
       <h1 class="details">Other Location Information</h1>
       <h1 class="potholeInfo">{{ pothole.locationDetails }}</h1>
+
       <h1 class="details">Severity:</h1>
-      <h1 class="potholeInfo">{{ pothole.severity }}</h1>
+      <h1 class="potholeInfo">
+        <select id="severity" class="dropdown" v-model="pothole.severity">
+          <option value="1">1 - High</option>
+          <option value="2">2 - Medium</option>
+          <option value="3">3 - Low</option>
+        </select>
+      </h1>
+
       <h1 class="details">Date Reported:</h1>
       <h1 class="potholeInfo">{{ pothole.reportedDate }}</h1>
 
-      <h1 class="details" v-if="pothole.inspectedDate != null">
-        Inspected Date:
-      </h1>
-      <h1 class="potholeInfo" v-if="pothole.inspectedDate != null">
-        {{ pothole.inspectedDate }}
+      <h1 class="details">Inspected Date:</h1>
+      <h1 class="potholeInfo">
+        <input
+          type="date"
+          id="inspectionDate"
+          v-model="pothole.inspectedDate"
+        />
       </h1>
 
-      <h1 class="details" v-if="pothole.repairDate != null">Repair Date:</h1>
-      <h1 class="potholeInfo" v-if="pothole.repairDate != null">
-        {{ pothole.repairDate }}
+      <h1 class="details">Repair Date:</h1>
+      <h1 class="potholeInfo">
+        <input type="date" id="repairDate" v-model="pothole.repairDate" />
       </h1>
 
       <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
@@ -40,30 +49,6 @@
           <input type="checkbox" id="repaired" v-model="pothole.repaired" />
         </div>
       </div>
-      <div>
-        <label for="severity">Severity:</label>
-        <select id="severity" class="dropdown" v-model="pothole.severity">
-          <option value="1">1 - High</option>
-          <option value="2">2 - Medium</option>
-          <option value="3">3 - Low</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <div>
-          <label for="inspectionDate">Inspection Date:</label>
-          <input
-            type="date"
-            id="inspectionDate"
-            v-model="pothole.inspectedDate"
-          />
-        </div>
-
-        <div>
-          <label for="repairDate">Repair Date:</label>
-
-          <input type="date" id="repairDate" v-model="pothole.repairDate" />
-        </div>
-      </div>
       <div class="button-group">
         <button class="submitBtn" @click.prevent="updatePothole()">
           Submit
@@ -75,14 +60,15 @@
     </form>
   </div>
 </template>
+
 <script>
 import PotholeService from "../services/PotholeService";
+
 export default {
   name: "pothole-details",
   data() {
     return {
       pothole: {},
-      // phoneNumber: null,
     };
   },
   created() {
@@ -91,7 +77,6 @@ export default {
       .then((response) => {
         this.$store.commit("SET_ACTIVE_POTHOLE", response.data);
         this.pothole = response.data;
-        // this.phoneNumber = response.data.phoneNumber;
       })
       .catch((error) => {
         if (error.response.status == 404) {
@@ -144,9 +129,11 @@ export default {
   },
 };
 </script>
+
+
 <style scoped>
 .inspection-form {
-  width: 50vw;
+  width: 40vw;
   max-width: 70vw;
   height: 65vh;
   max-height: 70vh;
@@ -167,6 +154,7 @@ export default {
 .info {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-top: -25px;
 }
 
 .header {
@@ -175,17 +163,9 @@ export default {
 label {
   font-size: 20px;
   color: white;
+  font-family: "Oxygen", sans-serif;
+  font-weight: bold;
 }
-#severity {
-  margin-left: 10px;
-  margin-bottom: 5px;
-  width: 30px;
-}
-
-/* .detail {
-  font-size: 18px;
-  margin-bottom: 6px;
-} */
 
 .form-title {
   font-size: 24px;
@@ -199,7 +179,7 @@ label {
 .checkbox-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
-
+  margin-top: 20px;
   margin-bottom: 12px;
 }
 
@@ -217,36 +197,15 @@ label {
   margin-bottom: 20px;
 }
 
-/* .input-container {
-  flex: 1;
-  margin-right: 12px;
-}
-
-.input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-} */
-
 .button-group {
   display: flex;
   margin-top: 110px;
   justify-content: space-between;
   align-items: bottom;
   position: absolute;
-  right: 520px;
+  right: 600px;
   top: 740px;
 }
-
-/* .btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s, color 0.3s;
-} */
 
 .submitBtn {
   background-color: #007bff;
@@ -276,11 +235,17 @@ label {
   color: #fff;
 }
 
-/* .btn:hover {
-  background-color: #333;
-  color: #fff;
-} */
 #severity {
-  margin-bottom: 10px;
+  width: 100px;
+  height: 35px;
+}
+#repairDate,
+#inspectionDate {
+  height: 35px;
+}
+h2 {
+  font-size: 50px;
+  text-align: center;
+  top: -40px;
 }
 </style>
