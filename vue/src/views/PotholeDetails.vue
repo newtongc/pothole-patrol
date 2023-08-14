@@ -22,10 +22,10 @@
         {{ pothole.repairDate }}
       </h1>
 
-      <!-- <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
+      <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
       <h1 v-if="pothole.canContact" class="potholeInfo">
-        {{ phoneNumber }}
-      </h1> -->
+        {{ pothole.reporter.phoneNumber }}
+      </h1>
     </div>
     <form>
       <div class="checkbox-group">
