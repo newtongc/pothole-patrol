@@ -125,6 +125,24 @@ export default {
 };
 </script>
 <style scoped>
+.btns {
+  display: flex;
+  justify-content: space-evenly;
+}
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+  height: 35px;
+  text-align: center;
+}
+button:hover {
+  background-color: #0056b3;
+}
 body {
   display: flex;
   justify-content: center;

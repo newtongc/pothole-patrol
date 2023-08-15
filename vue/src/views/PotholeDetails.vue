@@ -1,90 +1,91 @@
 <template>
-  <div>
-    <div class="inspection-form pothole-details">
-      <h2>{{ pothole.address }}</h2>
-      <div class="info">
-        <h1 class="details">Description:</h1>
-        <h1 class="potholeInfo">{{ pothole.description }}</h1>
-        <h1 class="details">Other Location Information</h1>
-        <h1 class="potholeInfo">{{ pothole.locationDetails }}</h1>
+  <div class="page">
+    <div>
+      <div class="inspection-form pothole-details">
+        <h2>{{ pothole.address }}</h2>
+        <div class="info">
+          <h1 class="details">Description:</h1>
+          <h1 class="potholeInfo">{{ pothole.description }}</h1>
+          <h1 class="details">Other Location Information</h1>
+          <h1 class="potholeInfo">{{ pothole.locationDetails }}</h1>
 
-        <h1 class="details">Severity:</h1>
-        <h1 class="potholeInfo">
-          <select id="severity" class="dropdown" v-model="pothole.severity">
-            <option value="1">1 - High</option>
-            <option value="2">2 - Medium</option>
-            <option value="3">3 - Low</option>
-          </select>
-        </h1>
+          <h1 class="details">Severity:</h1>
+          <h1 class="potholeInfo">
+            <select id="severity" class="dropdown" v-model="pothole.severity">
+              <option value="1">1 - High</option>
+              <option value="2">2 - Medium</option>
+              <option value="3">3 - Low</option>
+            </select>
+          </h1>
 
-        <h1 class="details">Date Reported:</h1>
-        <h1 class="potholeInfo">{{ pothole.reportedDate }}</h1>
+          <h1 class="details">Date Reported:</h1>
+          <h1 class="potholeInfo">{{ pothole.reportedDate }}</h1>
 
-        <h1 class="details">Inspected Date:</h1>
-        <h1 class="potholeInfo">
-          <input
-            type="date"
-            id="inspectionDate"
-            v-model="pothole.inspectedDate"
-          />
-        </h1>
+          <h1 class="details">Inspected Date:</h1>
+          <h1 class="potholeInfo">
+            <input
+              type="date"
+              id="inspectionDate"
+              v-model="pothole.inspectedDate"
+            />
+          </h1>
 
-        <h1 class="details">Repair Date:</h1>
-        <h1 class="potholeInfo">
-          <input type="date" id="repairDate" v-model="pothole.repairDate" />
-        </h1>
+          <h1 class="details">Repair Date:</h1>
+          <h1 class="potholeInfo">
+            <input type="date" id="repairDate" v-model="pothole.repairDate" />
+          </h1>
 
-        <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
-        <h1 v-if="pothole.canContact" class="potholeInfo">
-          {{ pothole.reporter.phoneNumber }}
-        </h1>
+          <h1 v-if="pothole.canContact" class="details">
+            Contact Phone Number:
+          </h1>
+          <h1 v-if="pothole.canContact" class="potholeInfo">
+            {{ pothole.reporter.phoneNumber }}
+          </h1>
+        </div>
+        <form>
+          <div class="checkbox-group">
+            <div>
+              <label for="inspected">Inspected</label>
+              <input
+                type="checkbox"
+                id="inspected"
+                v-model="pothole.inspected"
+              />
+            </div>
+            <div>
+              <label for="repaired">Repaired</label>
+              <input type="checkbox" id="repaired" v-model="pothole.repaired" />
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button class="submitBtn" @click.prevent="updatePothole()">
+              Submit
+            </button>
+            <button class="btnDelete" @click.prevent="deletePothole()">
+              Delete
+            </button>
+            <button
+              id="upload_widget"
+              class="cloudinary-button"
+              @click.prevent="openUploadWidget()"
+            >
+              Upload Picture
+            </button>
+          </div>
+        </form>
       </div>
-      <form>
-        <div class="checkbox-group">
-          <div>
-            <label for="inspected">Inspected</label>
-            <input type="checkbox" id="inspected" v-model="pothole.inspected" />
-          </div>
-          <div>
-            <label for="repaired">Repaired</label>
-            <input type="checkbox" id="repaired" v-model="pothole.repaired" />
-          </div>
-        </div>
-        <div class="button-group">
-          <button class="submitBtn" @click.prevent="updatePothole()">
-            Submit
-          </button>
-          <button class="btnDelete" v-on:click.prevent="deletePothole()">
-            Delete
-          </button>
-        </div>
-
-        <div class="button-group">
-          <button class="submitBtn" @click.prevent="updatePothole()">
-            Submit
-          </button>
-          <button class="btnDelete" v-on:click.prevent="deletePothole()">
-            Delete
-          </button>
-          <button
-            id="upload_widget"
-            class="btnWidget"
-            @click="openUploadWidget()"
-          >
-            Upload Picture
-          </button>
-        </div>
-      </form>
+    </div>
+    <div class="picture-group" v-if="pothole.imgUrl != null">
+      <img v-bind:src="pothole.imgUrl" alt="No picture available" />
     </div>
   </div>
 </template>
 
 <script>
 import PotholeService from "../services/PotholeService";
-// import {AdvancedImage} from '@cloudinary/vue'
 
 export default {
-  // components: {AdvancedImage},
   name: "pothole-details",
   data() {
     return {
@@ -166,12 +167,21 @@ export default {
 
 
 <style scoped>
+.page {
+  display: flex;
+  margin: auto;
+  justify-content: space-evenly;
+}
+img {
+  max-width: 40vw;
+  height: auto;
+}
 h1 {
   color: white;
 }
 .inspection-form {
-  width: 40vw;
-  max-width: 70vw;
+  width: 30vw;
+  max-width: 30vw;
   height: 65vh;
   max-height: 70vh;
   margin: 30px auto;
@@ -236,12 +246,9 @@ label {
 
 .button-group {
   display: flex;
-  width: 400px;
+  width: 100%;
   justify-content: space-between;
   align-items: bottom;
-  position: absolute;
-  right: 620px;
-  top: 740px;
 }
 
 .submitBtn {
@@ -271,7 +278,7 @@ label {
   background-color: #ac2835;
   color: #fff;
 }
-.btnWidget {
+.cloudinary-button {
   background-color: #43dc35;
   color: #fff;
   border: none;
@@ -281,7 +288,7 @@ label {
   border-radius: 5px;
   font-size: 16px;
 }
-.btnWidget:hover {
+.cloudinary-button:hover {
   background-color: #298a20;
 }
 #severity {

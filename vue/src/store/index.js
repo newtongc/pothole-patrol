@@ -26,7 +26,8 @@ export default new Vuex.Store({
       description: "",
       location: "",
       severity: null,
-      reported_date: null
+      reported_date: null,
+      urlImg: ""
     }
   },
   mutations: {

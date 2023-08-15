@@ -109,12 +109,12 @@ public class JdbcPotholeDao implements PotholeDao {
                 "    inspected_date = ?, " +
                 "    repair_date = ?, " +
                 "    inspected = ?, " +
-                "    repaired = ? " +
+                "    repaired = ?, " +
                 "    img_url = ? " +
                 "WHERE pothole_id = ?";
         try {
             int numberOfRows = jdbcTemplate.update(sql, pothole.getSeverity(), pothole.getInspectedDate(),
-                    pothole.getRepairDate(), pothole.isInspected(), pothole.isRepaired(), pothole.getId(), pothole.getImgUrl());
+                    pothole.getRepairDate(), pothole.isInspected(), pothole.isRepaired(), pothole.getImgUrl(), pothole.getId());
 
             if(numberOfRows ==0 ){
                 throw new DaoException("0 rows affected. Expected at least one");

@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ public class PotholeReivew {
     private LocalDate repairDate;
     private int severity;
     private int id;
+
     private String imgUrl;
 
     public int getId() {

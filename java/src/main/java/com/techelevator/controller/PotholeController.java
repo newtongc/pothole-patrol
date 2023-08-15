@@ -80,17 +80,6 @@ public class PotholeController {
             return pothole;
         }
     }
-//    @RequestMapping(path = "potholes/{id}", method = RequestMethod.PUT)
-//    public Pothole updatePothole(@PathVariable int id, @RequestBody PotholeReivew pothole) {
-//        Pothole updated = null;
-//        try {
-//            pothole.setId(id);
-//            updated = potholeDao.updatePothole(pothole);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return updated;
-//    }
     @RequestMapping(path = "potholes/{id}", method = RequestMethod.PUT)
     public Pothole updatePothole(@PathVariable int id, @RequestBody PotholeReivew potholeReview) {
         Pothole updated = null;
