@@ -10,6 +10,7 @@ public class PotholeReivew {
     private LocalDate repairDate;
     private int severity;
     private int id;
+    private String imgUrl;
 
     public int getId() {
         return id;
@@ -59,6 +60,14 @@ public class PotholeReivew {
 
     public void setSeverity(int severity) {
         this.severity = severity;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
 

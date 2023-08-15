@@ -1,77 +1,90 @@
 <template>
-  <div class="inspection-form pothole-details">
-    <h2>{{ pothole.address }}</h2>
-    <div class="info">
-      <h1 class="details">Description:</h1>
-      <h1 class="potholeInfo">{{ pothole.description }}</h1>
-      <h1 class="details">Other Location Information</h1>
-      <h1 class="potholeInfo">{{ pothole.locationDetails }}</h1>
+  <div>
+    <div class="inspection-form pothole-details">
+      <h2>{{ pothole.address }}</h2>
+      <div class="info">
+        <h1 class="details">Description:</h1>
+        <h1 class="potholeInfo">{{ pothole.description }}</h1>
+        <h1 class="details">Other Location Information</h1>
+        <h1 class="potholeInfo">{{ pothole.locationDetails }}</h1>
 
-      <h1 class="details">Severity:</h1>
-      <h1 class="potholeInfo">
-        <select id="severity" class="dropdown" v-model="pothole.severity">
-          <option value="1">1 - High</option>
-          <option value="2">2 - Medium</option>
-          <option value="3">3 - Low</option>
-        </select>
-      </h1>
+        <h1 class="details">Severity:</h1>
+        <h1 class="potholeInfo">
+          <select id="severity" class="dropdown" v-model="pothole.severity">
+            <option value="1">1 - High</option>
+            <option value="2">2 - Medium</option>
+            <option value="3">3 - Low</option>
+          </select>
+        </h1>
 
-      <h1 class="details">Date Reported:</h1>
-      <h1 class="potholeInfo">{{ pothole.reportedDate }}</h1>
+        <h1 class="details">Date Reported:</h1>
+        <h1 class="potholeInfo">{{ pothole.reportedDate }}</h1>
 
-      <h1 class="details">Inspected Date:</h1>
-      <h1 class="potholeInfo">
-        <input
-          type="date"
-          id="inspectionDate"
-          v-model="pothole.inspectedDate"
-        />
-      </h1>
+        <h1 class="details">Inspected Date:</h1>
+        <h1 class="potholeInfo">
+          <input
+            type="date"
+            id="inspectionDate"
+            v-model="pothole.inspectedDate"
+          />
+        </h1>
 
-      <h1 class="details">Repair Date:</h1>
-      <h1 class="potholeInfo">
-        <input type="date" id="repairDate" v-model="pothole.repairDate" />
-      </h1>
+        <h1 class="details">Repair Date:</h1>
+        <h1 class="potholeInfo">
+          <input type="date" id="repairDate" v-model="pothole.repairDate" />
+        </h1>
 
-      <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
-      <h1 v-if="pothole.canContact" class="potholeInfo">
-        {{ pothole.reporter.phoneNumber }}
-      </h1>
+        <h1 v-if="pothole.canContact" class="details">Contact Phone Number:</h1>
+        <h1 v-if="pothole.canContact" class="potholeInfo">
+          {{ pothole.reporter.phoneNumber }}
+        </h1>
+      </div>
+      <form>
+        <div class="checkbox-group">
+          <div>
+            <label for="inspected">Inspected</label>
+            <input type="checkbox" id="inspected" v-model="pothole.inspected" />
+          </div>
+          <div>
+            <label for="repaired">Repaired</label>
+            <input type="checkbox" id="repaired" v-model="pothole.repaired" />
+          </div>
+        </div>
+        <div class="button-group">
+          <button class="submitBtn" @click.prevent="updatePothole()">
+            Submit
+          </button>
+          <button class="btnDelete" v-on:click.prevent="deletePothole()">
+            Delete
+          </button>
+        </div>
+
+        <div class="button-group">
+          <button class="submitBtn" @click.prevent="updatePothole()">
+            Submit
+          </button>
+          <button class="btnDelete" v-on:click.prevent="deletePothole()">
+            Delete
+          </button>
+          <button
+            id="upload_widget"
+            class="btnWidget"
+            @click="openUploadWidget()"
+          >
+            Upload Picture
+          </button>
+        </div>
+      </form>
     </div>
-    <form>
-      <div class="checkbox-group">
-        <div>
-          <label for="inspected">Inspected</label>
-          <input type="checkbox" id="inspected" v-model="pothole.inspected" />
-        </div>
-        <div>
-          <label for="repaired">Repaired</label>
-          <input type="checkbox" id="repaired" v-model="pothole.repaired" />
-        </div>
-      </div>
-      <div class="button-group">
-        <button class="submitBtn" @click.prevent="updatePothole()">
-          Submit
-        </button>
-        <button class="btnDelete" v-on:click.prevent="deletePothole()">
-          Delete
-        </button>
-        <button
-          id="upload_widget"
-          class="btnWidget"
-          @click="openUploadWidget()"
-        >
-          Upload Picture
-        </button>
-      </div>
-    </form>
   </div>
 </template>
 
 <script>
 import PotholeService from "../services/PotholeService";
+// import {AdvancedImage} from '@cloudinary/vue'
 
 export default {
+  // components: {AdvancedImage},
   name: "pothole-details",
   data() {
     return {
