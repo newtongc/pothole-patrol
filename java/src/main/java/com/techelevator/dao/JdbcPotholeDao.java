@@ -51,7 +51,7 @@ public class JdbcPotholeDao implements PotholeDao {
     public Pothole getPotholeById(int id) {
         Pothole pothole = null;
         String sql = "SELECT pothole_id, description, address, severity, reported_date, inspected_date, repair_date, " +
-                "can_contact, inspected, repaired, zipcode, in_traffic, potential_damage, location_details, reporter_id " +
+                "can_contact, inspected, repaired, zipcode, in_traffic, potential_damage, location_details, reporter_id, img_url " +
                 "FROM potholes WHERE pothole_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
@@ -110,10 +110,11 @@ public class JdbcPotholeDao implements PotholeDao {
                 "    repair_date = ?, " +
                 "    inspected = ?, " +
                 "    repaired = ? " +
+                "    img_url = ? " +
                 "WHERE pothole_id = ?";
         try {
             int numberOfRows = jdbcTemplate.update(sql, pothole.getSeverity(), pothole.getInspectedDate(),
-                    pothole.getRepairDate(), pothole.isInspected(), pothole.isRepaired(), pothole.getId());
+                    pothole.getRepairDate(), pothole.isInspected(), pothole.isRepaired(), pothole.getId(), pothole.getImgUrl());
 
             if(numberOfRows ==0 ){
                 throw new DaoException("0 rows affected. Expected at least one");
