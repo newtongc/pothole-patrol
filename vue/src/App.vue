@@ -29,6 +29,8 @@
 </template>
 
 
+
+
 <style>
 /* @import url("https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap"); */
 #nav {
@@ -42,6 +44,7 @@
   border: none;
   padding: 10px 20px;
   margin: 0 5px;
+  margin-bottom: 10px;
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;

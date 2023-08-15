@@ -56,6 +56,13 @@
         <button class="btnDelete" v-on:click.prevent="deletePothole()">
           Delete
         </button>
+        <button
+          id="upload_widget"
+          class="btnWidget"
+          @click="openUploadWidget()"
+        >
+          Upload Picture
+        </button>
       </div>
     </form>
   </div>
@@ -118,6 +125,20 @@ export default {
       // Add other constraint checks here if needed
       return true;
     },
+    openUploadWidget() {
+      const widget = window.cloudinary.createUploadWidget(
+        {
+          cloud_name: "dd6n4zinx",
+          upload_preset: "ryc8jlxd",
+        },
+        (error, result) => {
+          if (!error && result && result.event === "success") {
+            console.log("Done Uploading Image", result.info);
+          }
+        }
+      );
+      widget.open();
+    },
     deletePothole() {
       alert("Deleting");
       PotholeService.deletePothole(this.pothole.id).then((response) => {
@@ -132,6 +153,9 @@ export default {
 
 
 <style scoped>
+h1 {
+  color: white;
+}
 .inspection-form {
   width: 40vw;
   max-width: 70vw;
@@ -199,11 +223,11 @@ label {
 
 .button-group {
   display: flex;
-  margin-top: 110px;
+  width: 400px;
   justify-content: space-between;
   align-items: bottom;
   position: absolute;
-  right: 600px;
+  right: 620px;
   top: 740px;
 }
 
@@ -234,7 +258,19 @@ label {
   background-color: #ac2835;
   color: #fff;
 }
-
+.btnWidget {
+  background-color: #43dc35;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.btnWidget:hover {
+  background-color: #298a20;
+}
 #severity {
   width: 100px;
   height: 35px;

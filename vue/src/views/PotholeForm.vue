@@ -71,12 +71,14 @@
           v-model="pothole.potential_damage"
         />
       </div>
-      <input
-        type="submit"
-        value="Submit"
-        class="submit-button"
-        v-on:click.prevent="savePothole()"
-      />
+      <div class="btns">
+        <input
+          type="submit"
+          value="Submit"
+          class="submit-button"
+          v-on:click.prevent="savePothole()"
+        />
+      </div>
     </form>
   </div>
 </template>
@@ -182,6 +184,7 @@ input[type="submit"] {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  width: 100%;
 }
 input[type="submit"]:hover {
   background-color: #0056b3;

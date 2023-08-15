@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h2>Home</h2>
     <div class="table-container">
       <div class="filter-container">
         <input
@@ -61,7 +60,7 @@
           <td>{{ pothole.inspected }}</td>
           <td>{{ pothole.repairDate }}</td>
           <td>{{ pothole.repaired }}</td>
-          <td v-if="isAdmin">{{ pothole.severity }}</td>
+          <td v-if="isAdmin">{{ rankSeverity(pothole) }}</td>
         </tr>
       </table>
     </div>
@@ -98,6 +97,22 @@ export default {
         this.potholes = response.data;
       });
     },
+    rankSeverity(pothole) {
+      let rank = "";
+      if (pothole.severity === 3) {
+        rank = "Low";
+      }
+      if (pothole.severity === 2) {
+        rank = "Medium";
+      }
+      if (pothole.severity === 1) {
+        rank = "High";
+      }
+      if (pothole.severity === 0) {
+        rank = "Not ranked yet";
+      }
+      return rank;
+    },
   },
 };
 </script>
@@ -125,6 +140,11 @@ body {
   margin: auto;
   width: 100%;
 }
+a,
+td {
+  color: white;
+  text-align: center;
+}
 
 h2 {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -147,17 +167,12 @@ th,
 td {
   border: 1px solid #ddd;
   padding: 10px;
-  text-align: left;
 }
 th {
   background-color: rgb(150, 150, 150, 0.822);
   font-weight: bold;
 }
-td {
-  vertical-align: top;
-  text-align: left;
-  color: white;
-}
+
 th,
 td:last-child {
   width: 20%;
