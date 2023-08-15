@@ -60,16 +60,18 @@
         </div>
       </form>
     </div>
-    <div>
+    <!-- <div>
       <AdvancedImage :cldImg="myImg" />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import PotholeService from "../services/PotholeService";
+// import {AdvancedImage} from '@cloudinary/vue'
 
 export default {
+  // components: {AdvancedImage},
   name: "pothole-details",
   data() {
     return {

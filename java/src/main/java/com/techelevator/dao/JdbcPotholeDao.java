@@ -153,6 +153,7 @@ public class JdbcPotholeDao implements PotholeDao {
         pothole.setPotentialDamage(rs.getBoolean("potential_damage"));
         pothole.setLocationDetails(rs.getString("location_details"));
         pothole.setReporterId(rs.getInt("reporter_id"));
+        pothole.setImgUrl(rs.getString("img_url"));
         return pothole;
     }
     public List<Pothole> filterPotholes(int severity, String zipcode, String address) {

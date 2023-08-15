@@ -28,6 +28,7 @@ CREATE TABLE potholes (
     potential_damage boolean,
     location_details varchar(500),
     reporter_id int,
+    img_url varchar(500),
     CONSTRAINT PK_potholes PRIMARY KEY (pothole_id),
     CONSTRAINT FK_users_user_id FOREIGN KEY (reporter_id) REFERENCES users (user_id),
     CONSTRAINT check_inspected_date CHECK ((inspected = false) OR (inspected = true AND inspected_date IS NOT NULL)),
