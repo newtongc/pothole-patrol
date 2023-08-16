@@ -89,7 +89,7 @@ label {
   text-align: center;
   border-radius: 20px;
   background-color: rgba(128, 128, 128, 0.822);
-  width: 50%;
+  width: 35%;
   height: 40vh;
   margin: auto;
 }

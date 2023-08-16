@@ -76,17 +76,8 @@
         </form>
       </div>
     </div>
-    <div
-      class="picture-group"
-      v-if="pothole.imgUrls && pothole.imgUrls.length > 0"
-    >
-      <div
-        v-for="(imgUrl, index) in pothole.imgUrls"
-        :key="index"
-        class="uploaded-image"
-      >
-        <img v-bind:src="imgUrl" alt="Pothole Image" />
-      </div>
+    <div class="picture-group" v-if="pothole.imgUrl != null">
+      <img v-bind:src="pothole.imgUrl" alt="No picture available" />
     </div>
   </div>
 </template>
@@ -157,10 +148,7 @@ export default {
         (error, result) => {
           if (!error && result && result.event === "success") {
             console.log("Done Uploading Image", result.info);
-            if (!this.pothole.imgUrls) {
-              this.pothole.imgUrls = [];
-            }
-            this.pothole.imgUrls.push(result.info.secure_url);
+            this.pothole.imgUrl = result.info.secure_url;
           }
         }
       );
@@ -180,6 +168,11 @@ export default {
 
 
 <style scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .page {
   display: flex;
   margin: auto;
@@ -193,10 +186,8 @@ h1 {
   color: white;
 }
 .inspection-form {
-  width: 30vw;
-  max-width: 30vw;
-  height: 65vh;
-  max-height: 70vh;
+  width: 35vw;
+  max-width: 80vw;
   margin: 30px auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -255,9 +246,7 @@ label {
 
 .button-group {
   display: flex;
-  width: 100%;
   justify-content: space-between;
-  align-items: bottom;
 }
 
 .submitBtn {
@@ -278,7 +267,6 @@ label {
   color: #fff;
   border: none;
   padding: 10px 20px;
-  margin: 0 5px;
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
@@ -309,7 +297,7 @@ label {
   height: 35px;
 }
 h2 {
-  font-size: 50px;
+  font-size: 35px;
   text-align: center;
   top: -40px;
 }
