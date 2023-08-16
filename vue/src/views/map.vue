@@ -48,7 +48,7 @@ export default {
             const content = `
               <div>
                 <p>${pothole.address}</p>
-                <img src="${pothole.imgUrl}" alt="Pothole Image" />
+                <img v-if="pothole.imgUrl != null" src="${pothole.imgUrl}" alt="Pothole Image" />
               </div>`;
 
             // Create InfoWindow instance
