@@ -1,14 +1,8 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
-<<<<<<< HEAD
-import com.techelevator.model.Pothole;
-import com.techelevator.model.PotholeReivew;
-import com.techelevator.model.RegisterPotholeDto;
-=======
 import com.techelevator.model.*;
 import org.apache.tomcat.jni.Local;
->>>>>>> 7b17c8c1a2b93720d6c9b7961ad81a7aabece7e4
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -154,10 +148,7 @@ public class JdbcPotholeDao implements PotholeDao {
         pothole.setPotentialDamage(rs.getBoolean("potential_damage"));
         pothole.setLocationDetails(rs.getString("location_details"));
         pothole.setReporterId(rs.getInt("reporter_id"));
-<<<<<<< HEAD
         pothole.setImgUrls(rs.getString("img_url"));
-=======
->>>>>>> 7b17c8c1a2b93720d6c9b7961ad81a7aabece7e4
         return pothole;
     }
     public List<Pothole> filterPotholes(int severity, String zipcode, String address) {
