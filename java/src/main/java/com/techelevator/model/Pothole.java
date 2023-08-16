@@ -21,11 +21,11 @@ public class Pothole {
     private String locationDetails;
     private int reporterId;
     private Reporter reporter;
-    private String[] imgUrls;
+    private String imgUrl;
 
     public Pothole(int id, String description, int severity, String address, LocalDate reportedDate, LocalDate inspectedDate,
                    LocalDate repairDate, boolean canContact, boolean inspected, boolean repaired, String zipcode,
-                   boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId, String[] imgUrl) {
+                   boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId, String imgUrl) {
         this.id = id;
         this.description = description;
         this.severity = severity;
@@ -42,7 +42,7 @@ public class Pothole {
         this.locationDetails = locationDetails;
         this.reporterId = reporterId;
         this.reporter = reporter;
-        this.imgUrls = imgUrl;
+        this.imgUrl = imgUrl;
     }
 
     public Pothole() {
@@ -176,11 +176,11 @@ public class Pothole {
         this.reporter = reporter;
     }
 
-    public String[] getImgUrls() {
-        return imgUrls;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setImgUrls(String[] imgUrls) {
-        this.imgUrls = imgUrls;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
