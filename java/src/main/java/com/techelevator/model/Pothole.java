@@ -1,11 +1,7 @@
 package com.techelevator.model;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Pothole {
     private int id;
@@ -25,11 +21,11 @@ public class Pothole {
     private String locationDetails;
     private int reporterId;
     private Reporter reporter;
-    private String imgUrl;
+    private String[] imgUrls;
 
     public Pothole(int id, String description, int severity, String address, LocalDate reportedDate, LocalDate inspectedDate,
                    LocalDate repairDate, boolean canContact, boolean inspected, boolean repaired, String zipcode,
-                   boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId, String imgUrl) {
+                   boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId, String[] imgUrl) {
         this.id = id;
         this.description = description;
         this.severity = severity;
@@ -46,7 +42,7 @@ public class Pothole {
         this.locationDetails = locationDetails;
         this.reporterId = reporterId;
         this.reporter = reporter;
-        this.imgUrl = imgUrl;
+        this.imgUrls = imgUrl;
     }
 
     public Pothole() {
@@ -180,11 +176,11 @@ public class Pothole {
         this.reporter = reporter;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String[] getImgUrls() {
+        return imgUrls;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImgUrls(String[] imgUrls) {
+        this.imgUrls = imgUrls;
     }
 }

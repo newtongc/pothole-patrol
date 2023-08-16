@@ -76,8 +76,17 @@
         </form>
       </div>
     </div>
-    <div class="picture-group" v-if="pothole.imgUrl != null">
-      <img v-bind:src="pothole.imgUrl" alt="No picture available" />
+    <div
+      class="picture-group"
+      v-if="pothole.imgUrls && pothole.imgUrls.length > 0"
+    >
+      <div
+        v-for="(imgUrl, index) in pothole.imgUrls"
+        :key="index"
+        class="uploaded-image"
+      >
+        <img v-bind:src="imgUrl" alt="Pothole Image" />
+      </div>
     </div>
   </div>
 </template>
@@ -148,7 +157,10 @@ export default {
         (error, result) => {
           if (!error && result && result.event === "success") {
             console.log("Done Uploading Image", result.info);
-            this.pothole.imgUrl = result.info.secure_url;
+            if (!this.pothole.imgUrls) {
+              this.pothole.imgUrls = [];
+            }
+            this.pothole.imgUrls.push(result.info.secure_url);
           }
         }
       );
@@ -300,5 +312,11 @@ h2 {
   font-size: 50px;
   text-align: center;
   top: -40px;
+}
+.picture-group {
+  display: flex;
+}
+.uploaded-image {
+  display: flex;
 }
 </style>

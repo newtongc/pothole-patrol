@@ -4,8 +4,6 @@ import com.techelevator.exception.DaoException;
 import com.techelevator.model.Pothole;
 import com.techelevator.model.PotholeReivew;
 import com.techelevator.model.RegisterPotholeDto;
-import com.techelevator.model.Reporter;
-import org.apache.tomcat.jni.Local;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -13,12 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
 import java.sql.Types;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Component
 public class JdbcPotholeDao implements PotholeDao {
@@ -154,7 +149,7 @@ public class JdbcPotholeDao implements PotholeDao {
         pothole.setPotentialDamage(rs.getBoolean("potential_damage"));
         pothole.setLocationDetails(rs.getString("location_details"));
         pothole.setReporterId(rs.getInt("reporter_id"));
-        pothole.setImgUrl(rs.getString("img_url"));
+        pothole.setImgUrls(rs.getString("img_url"));
         return pothole;
     }
     public List<Pothole> filterPotholes(int severity, String zipcode, String address) {

@@ -9,13 +9,12 @@
 //may need to disable eslint, code below doesn't work
 /* eslint-disable no-undef */
 import { onUnmounted, ref, onMounted } from "vue";
-// import { useGeolocation } from "../views/useGeolocation.js";
+
 import { Loader } from "@googlemaps/js-api-loader";
 import potholeService from "../services/PotholeService";
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyB6HPaxOw85SJRuKmwajkhRj23HVl_p6PI";
 
-//current position variable asks user for access to current geolocation and grabs the long and lat from data based on api data
 export default {
   name: "App",
   setup() {
@@ -48,7 +47,7 @@ export default {
             const content = `
               <div>
                 <p>${pothole.address}</p>
-                <img v-if="pothole.imgUrl != null" src="${pothole.imgUrl}" alt="Pothole Image" />
+                <img v-if="pothole.imgUrl != null" src="${pothole.imgUrl}" alt="Pothole Image style="width: 400px; height: 400px;" />
               </div>`;
 
             // Create InfoWindow instance
