@@ -1,10 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.Pothole;
-import com.techelevator.model.PotholeReivew;
-import com.techelevator.model.RegisterPotholeDto;
-import com.techelevator.model.Reporter;
+import com.techelevator.model.*;
 import org.apache.tomcat.jni.Local;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -154,7 +151,6 @@ public class JdbcPotholeDao implements PotholeDao {
         pothole.setPotentialDamage(rs.getBoolean("potential_damage"));
         pothole.setLocationDetails(rs.getString("location_details"));
         pothole.setReporterId(rs.getInt("reporter_id"));
-        pothole.setImgUrl(rs.getString("img_url"));
         return pothole;
     }
     public List<Pothole> filterPotholes(int severity, String zipcode, String address) {
@@ -189,5 +185,30 @@ public class JdbcPotholeDao implements PotholeDao {
             throw new DaoException("Unable to connect to server or database", e);
         }
         return potholes;
+    }
+
+    public List<ImgUrl> getPotholeImages(int id) {
+        List<ImgUrl> imgUrls = new ArrayList<>();
+        String sql = "SELECT img_url, img_id, imgUrls.pothole_id " +
+                "FROM imgUrls JOIN potholes ON potholes.pothole_id = imgUrls.pothole_id WHERE imgUrls.pothole_id = ?";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+            while (results.next()) {
+                ImgUrl imgUrl = mapRowToImgUrl(results);
+                imgUrls.add(imgUrl);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return imgUrls;
+
+    }
+
+    private ImgUrl mapRowToImgUrl(SqlRowSet rs) {
+        ImgUrl imgUrl = new ImgUrl();
+        imgUrl.setId(rs.getInt("img_id"));
+        imgUrl.setImgUrl(rs.getString("img_url"));
+        imgUrl.setPotholeId(rs.getInt("pothole_id"));
+        return imgUrl;
     }
 }

@@ -28,7 +28,6 @@ CREATE TABLE potholes (
     potential_damage boolean,
     location_details varchar(500),
     reporter_id int,
-    img_url varchar(500),
     CONSTRAINT PK_potholes PRIMARY KEY (pothole_id),
     CONSTRAINT FK_users_user_id FOREIGN KEY (reporter_id) REFERENCES users (user_id),
     CONSTRAINT check_inspected_date CHECK ((inspected = false) OR (inspected = true AND inspected_date IS NOT NULL)),
@@ -37,6 +36,14 @@ CREATE TABLE potholes (
         (inspected = false OR (inspected = true AND inspected_date IS NOT NULL AND (repaired = false OR (repaired = true AND repair_date IS NOT NULL))))
         AND (repaired = false OR (repaired = true AND (repair_date IS NULL OR repair_date > inspected_date)))
     )
+);
+
+CREATE TABLE imgUrls (
+    img_id SERIAL,
+    img_url VARCHAR(500) NOT NULL,
+    pothole_id INT,
+    CONSTRAINT FK_pothole_id FOREIGN KEY (pothole_id) REFERENCES potholes(pothole_id),
+	CONSTRAINT PK_IMG_URLS PRIMARY KEY (img_id)
 );
 
 COMMIT TRANSACTION;
