@@ -8,7 +8,7 @@ import store from '../store/index'
 import PotholeForm from '../views/PotholeForm.vue'
 import PotholeDetails from '../views/PotholeDetails.vue'
 import map from '../views/map.vue'
-import PotholeImages from '../views/PotholeImages'
+
 
 Vue.use(Router)
 
@@ -90,14 +90,7 @@ const router = new Router({
         requiresAuth: true,
       }
     },
-    {
-      path: '/potholes/:id/images',
-      name: 'ViewPotholeImages',
-      component: PotholeImages,
-      meta: {
-        requiresAuth: true,
-      }
-    }
+
   ]
 })
 
