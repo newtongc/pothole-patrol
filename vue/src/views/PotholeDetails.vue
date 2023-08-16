@@ -195,8 +195,6 @@ h1 {
 .inspection-form {
   width: 30vw;
   max-width: 30vw;
-  height: 65vh;
-  max-height: 70vh;
   margin: 30px auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -309,7 +307,7 @@ label {
   height: 35px;
 }
 h2 {
-  font-size: 50px;
+  font-size: 30px;
   text-align: center;
   top: -40px;
 }

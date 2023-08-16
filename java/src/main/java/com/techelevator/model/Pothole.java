@@ -2,6 +2,12 @@ package com.techelevator.model;
 
 
 import java.time.LocalDate;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+>>>>>>> 7b17c8c1a2b93720d6c9b7961ad81a7aabece7e4
 
 public class Pothole {
     private int id;
@@ -21,11 +27,18 @@ public class Pothole {
     private String locationDetails;
     private int reporterId;
     private Reporter reporter;
+<<<<<<< HEAD
     private String[] imgUrls;
 
     public Pothole(int id, String description, int severity, String address, LocalDate reportedDate, LocalDate inspectedDate,
                    LocalDate repairDate, boolean canContact, boolean inspected, boolean repaired, String zipcode,
                    boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId, String[] imgUrl) {
+=======
+
+    public Pothole(int id, String description, int severity, String address, LocalDate reportedDate, LocalDate inspectedDate,
+                   LocalDate repairDate, boolean canContact, boolean inspected, boolean repaired, String zipcode,
+                   boolean inTraffic, boolean potentialDamage, String locationDetails, int reporterId) {
+>>>>>>> 7b17c8c1a2b93720d6c9b7961ad81a7aabece7e4
         this.id = id;
         this.description = description;
         this.severity = severity;
@@ -42,7 +55,10 @@ public class Pothole {
         this.locationDetails = locationDetails;
         this.reporterId = reporterId;
         this.reporter = reporter;
+<<<<<<< HEAD
         this.imgUrls = imgUrl;
+=======
+>>>>>>> 7b17c8c1a2b93720d6c9b7961ad81a7aabece7e4
     }
 
     public Pothole() {
@@ -175,6 +191,7 @@ public class Pothole {
     public void setReporter(Reporter reporter) {
         this.reporter = reporter;
     }
+<<<<<<< HEAD
 
     public String[] getImgUrls() {
         return imgUrls;
@@ -183,4 +200,6 @@ public class Pothole {
     public void setImgUrls(String[] imgUrls) {
         this.imgUrls = imgUrls;
     }
+=======
+>>>>>>> 7b17c8c1a2b93720d6c9b7961ad81a7aabece7e4
 }
