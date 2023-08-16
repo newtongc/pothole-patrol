@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <button id="homebtn" @click="$router.push({ name: 'home' })">Home</button>
+      <button id="homebtn" @click="$router.push({ name: 'map' })">Map</button>
       <!-- &nbsp;|&nbsp; -->
       <button
         id="homebtn"

@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import PotholeForm from '../views/PotholeForm.vue'
 import PotholeDetails from '../views/PotholeDetails.vue'
+import map from '../views/map.vue'
 
 Vue.use(Router)
 
@@ -27,6 +28,14 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: map,
       meta: {
         requiresAuth: false
       }

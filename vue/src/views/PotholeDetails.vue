@@ -6,7 +6,7 @@
         <div class="info">
           <h1 class="details">Description:</h1>
           <h1 class="potholeInfo">{{ pothole.description }}</h1>
-          <h1 class="details">Other Location Information</h1>
+          <h1 class="details">Other Location Information:</h1>
           <h1 class="potholeInfo">{{ pothole.locationDetails }}</h1>
 
           <h1 class="details">Severity:</h1>
@@ -148,6 +148,7 @@ export default {
         (error, result) => {
           if (!error && result && result.event === "success") {
             console.log("Done Uploading Image", result.info);
+            this.pothole.imgUrl = result.info.secure_url;
           }
         }
       );
@@ -204,9 +205,6 @@ h1 {
   margin-top: -25px;
 }
 
-.header {
-  margin-bottom: 20px;
-}
 label {
   font-size: 20px;
   color: white;
@@ -216,7 +214,6 @@ label {
 
 .form-title {
   font-size: 24px;
-  margin-bottom: 20px;
 }
 
 .form-container {

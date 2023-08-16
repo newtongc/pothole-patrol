@@ -67,21 +67,5 @@ export default new Vuex.Store({
         return false;
       }
     },
-    // rankPotholeSeverity(state) {
-    // let rank = "";
-    // if (state.potholes.severity === 3) {
-    //   rank = "Low";
-    // }
-    // if (state.potholes.severity === 2) {
-    //   rank = "Medium";
-    // }
-    // if (state.potholes.severity === 1) {
-    //   rank = "High";
-    // }
-    // if (state.potholes.severity === 0) {
-    //   rank = "Not ranked yet"
-    // }
-    // return rank;
-    //}
   }
 })

@@ -34,7 +34,7 @@ public class PotholeController {
         this.jdbcUserDao = jdbcUserDao;
     }
 
-    @RequestMapping(path = "/potholes", method = RequestMethod.GET)
+    @RequestMapping(path = {"/potholes", "/potholes/map"}, method = RequestMethod.GET)
     public List<Pothole> viewPotholes(@RequestParam(required = false) String zipcode,
                                       @RequestParam(required = false)String address,
                                       @RequestParam(defaultValue = "0")int severity){

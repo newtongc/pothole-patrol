@@ -18,5 +18,8 @@ export default {
   deletePothole(id) {
     return http.delete(`/potholes/${id}`)
   },
+  listPotholesOnMap() {
+    return http.get('/potholes/map')
+  }
 
 }

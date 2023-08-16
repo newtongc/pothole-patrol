@@ -10,6 +10,7 @@
   "dependencies": {
     "@cloudinary/url-gen": "^1.11.1",
     "@cloudinary/vue": "^1.11.2",
+    "@googlemaps/js-api-loader": "^1.16.2",
     "axios": "^0.21.1",
     "bootstrap": "^5.3.1",
     "cloudinary": "^1.40.0",
