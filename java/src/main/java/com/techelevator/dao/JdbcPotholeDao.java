@@ -28,7 +28,7 @@ public class JdbcPotholeDao implements PotholeDao {
         List<Pothole> potholes = new ArrayList<>();
         String sql = "SELECT pothole_id, description, address, severity, reported_date, inspected_date, repair_date, " +
                 "can_contact, inspected, repaired, zipcode, in_traffic, potential_damage, location_details, " +
-                "reporter_id FROM potholes";
+                "reporter_id, img_url FROM potholes";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
