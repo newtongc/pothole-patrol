@@ -15,7 +15,7 @@ VALUES ('1776 Mentor Ave, Cincinnati, OH', '45212', 'In the middle of the road',
 
 
 INSERT INTO potholes (address, zipcode, location_details, description, severity, reported_date, inspected_date, repair_date, can_contact, inspected, repaired, in_traffic, potential_damage, reporter_id, img_url)
-VALUES ('4910 Para Dr, Cincinnati, OH', '45237', 'It popped my tire', 'Deep pothole near the intersection', 3, '2023-08-03', '2023-08-04', '2023-08-10', false, true, false, true, true, 1, 'https://res.cloudinary.com/dd6n4zinx/image/upload/v1692277983/kfpb5gbryzy1jzhccmgs.png');
+VALUES ('4910 Para Dr, Cincinnati, OH', '45237', 'It popped my tire', 'Deep pothole near the intersection', 3, '2023-08-03', '2023-08-04', '2023-08-10', false, true, true, true, true, 1, 'https://res.cloudinary.com/dd6n4zinx/image/upload/v1692277983/kfpb5gbryzy1jzhccmgs.png');
 
 
 INSERT INTO potholes (address, zipcode, location_details, description, severity, reported_date, inspected_date, repair_date, can_contact, inspected, repaired, in_traffic, potential_damage, reporter_id, img_url)
